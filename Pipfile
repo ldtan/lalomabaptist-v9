@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+python-dotenv = "*"
+flask-security-too = {extras = ["babel", "fsqla", "common", "mfa"], version = "*"}
+flask-session = "*"
+flask-migrate = "*"
+flask-admin = "*"
+bcrypt = "==4.0.1"
+celery = "*"
+
+[dev-packages]
+pymysql = "*"
+redis = "*"
+
+[requires]
+python_version = "3.10"
