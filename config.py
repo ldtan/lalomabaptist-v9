@@ -3,6 +3,7 @@ from os import (
     path,
 )
 
+from redislite import Redis
 import redis
 
 
@@ -55,6 +56,11 @@ class Production(Config):
 
     # SQLAlchemy:
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+    SESSION_TYPE = 'redis'
+    SESSION_PERMANENT = False
+    SESSION_USE_SIGNER = True
+    SESSION_REDIS = Redis(environ.get('REDISLITE_PATH', None))
 
 
 class Development(Config):
