@@ -19,13 +19,8 @@ class Config:
     }
 
     # Session
-    SESSION_TYPE = 'sqlalchemy'
-    SESSION_PERMANENT = True
-    SESSION_SQLALCHEMY_TABLE = 'sessions'
-    # SESSION_TYPE = 'redis'
-    # SESSION_PERMANENT = False
-    # SESSION_USE_SIGNER = True
-    # SESSION_REDIS = redis.from_url(environ['REDIS_URL'])
+    SESSION_PERMANENT = False
+    SESSION_USE_SIGNER = True
 
     # Security:
     SECURITY_PASSWORD_HASH = environ['SECURITY_PASSWORD_HASH']
@@ -56,11 +51,6 @@ class Production(Config):
 
     # SQLAlchemy:
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-
-    SESSION_TYPE = 'redis'
-    SESSION_PERMANENT = False
-    SESSION_USE_SIGNER = True
-    SESSION_REDIS = Redis(environ.get('REDISLITE_PATH', None))
 
 
 class Development(Config):

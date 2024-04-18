@@ -1,14 +1,18 @@
 from os import environ
+from typing import Optional
 
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
-from flask_session import Session
+from redis import Redis
 
 from .core.utils import register_module
 from .core.tasks import celery_init_app
 
 
-def create_app(use_celery: bool = False) -> Flask:
+def create_app(
+        session_redis: Optional[Redis] = None,
+        use_celery: bool = False
+    ) -> Flask:
     """Flask app factory."""
 
     app = Flask(__name__, static_folder=None, template_folder=None)
@@ -28,6 +32,19 @@ def create_app(use_celery: bool = False) -> Flask:
 
     # Setup Session extension.
     from .extensions import session
+
+    if session_redis:
+        app.config.update({
+            'SESSION_TYPE': 'redis',
+            'SESSION_REDIS': session_redis,
+        })
+    else:
+        app.config.update({
+            'SESSION_TYPE': 'sqlalchemy',
+            'SESSION_SQLALCHEMY': db,
+            'SESSION_SQLALCHEMY_TABLE': 'sessions',
+        })
+
     session.init_app(app)
 
     # Setup Babel extension.
