@@ -27,8 +27,8 @@ def create_app(use_celery: bool = False) -> Flask:
     migrate.init_app(app, db)
 
     # Setup Session extension.
-    app.config['SESSION_SQLALCHEMY'] = db
-    Session(app)
+    # app.config['SESSION_SQLALCHEMY'] = db
+    # Session(app)
 
     # Setup Babel extension.
     from .extensions import babel
