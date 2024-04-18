@@ -401,6 +401,7 @@ class UsersAdmin(AdminAccessModelView):
 
         if issubclass(self.model, GranularAccessMixin) \
                 and getattr(form, 'use_unique_access', False) \
+                and not model.has_unique_access \
                 and model.access_node != model.get_model_access_node():
 
             self_access = UserAccess(
