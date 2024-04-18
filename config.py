@@ -60,7 +60,7 @@ class Production(Config):
     SESSION_TYPE = 'redis'
     SESSION_PERMANENT = False
     SESSION_USE_SIGNER = True
-    # SESSION_REDIS = Redis(environ.get('REDISLITE_PATH', None))
+    SESSION_REDIS = Redis(environ.get('REDISLITE_PATH', None))
 
 
 class Development(Config):
