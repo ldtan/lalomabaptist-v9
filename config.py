@@ -3,9 +3,6 @@ from os import (
     path,
 )
 
-from redislite import Redis
-import redis
-
 
 class Config:
     # Flask:
