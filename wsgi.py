@@ -5,7 +5,7 @@ from app import create_app
 load_dotenv('.flaskenv')
 load_dotenv('instance/.env')
 
-flask_app = create_app(use_celery=True)
+flask_app = create_app(use_celery=False)
 celery_app = flask_app.extensions.get('celery', None)
 
 # Note:
