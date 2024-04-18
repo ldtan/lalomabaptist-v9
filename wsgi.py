@@ -2,6 +2,7 @@ from os import environ
 
 from dotenv import load_dotenv
 from redislite import Redis
+from redislite.client import RedisLiteException
 
 from app import create_app
 
@@ -9,7 +10,11 @@ from app import create_app
 load_dotenv('.flaskenv')
 load_dotenv('instance/.env')
 
-redis_db = Redis(environ.get('REDISLITE_PATH', None))
+try:
+    redis_db = Redis(environ.get('REDISLITE_PATH', None))
+except RedisLiteException:
+    redis_db = None
+
 flask_app = create_app(use_celery=False, session_redis=redis_db)
 celery_app = flask_app.extensions.get('celery', None)
 
