@@ -1,8 +1,9 @@
-from os import environ
+from os import (
+    environ,
+    name as os_name,
+)
 
 from dotenv import load_dotenv
-from redislite import Redis
-from redislite.client import RedisLiteException
 
 from app import create_app
 
@@ -10,9 +11,19 @@ from app import create_app
 load_dotenv('.flaskenv')
 load_dotenv('instance/.env')
 
-try:
-    redis_db = Redis(environ.get('REDISLITE_PATH', None))
-except RedisLiteException:
+# Note:
+# Redislite only works in Linux (posix) platforms and will throw an error
+# when installed or ran in Windows (nt).
+if os_name == 'posix':
+    from redislite import Redis
+    from redislite.client import RedisLiteException
+
+    try:
+        redis_db = Redis(environ.get('REDISLITE_PATH', None))
+        environ['REDIS_URL'] = f"redis+socket://{redis_db.socket_file}"
+    except RedisLiteException:
+        redis_db = None
+else:
     redis_db = None
 
 flask_app = create_app(use_celery=False, session_redis=redis_db)
