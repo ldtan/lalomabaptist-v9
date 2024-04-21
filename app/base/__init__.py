@@ -9,9 +9,10 @@ def create_blueprint() -> Blueprint:
             static_folder=None, template_folder=None)
     
     blueprint.admin_views = (
-        admin.PeopleAdmin,
-        admin.SitePagesAdmin,
         admin.MinistriesAdmin,
+        admin.PeopleAdmin,
+        admin.PreachingsAdmin,
+        admin.SitePagesAdmin,
     )
     
     # blueprint.add_url_rule('/', view_func=views.index)
