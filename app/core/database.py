@@ -14,6 +14,19 @@ from sqlalchemy.orm import (
     Mapped,
     mapped_column,
 )
+from sqlalchemy_utils import ChoiceType as BaseChoiceType
+
+
+_EMPTY_CHOICE = (('none', 'None'),)
+
+
+class ChoiceType(BaseChoiceType):
+    """Based from sqlalchemy_utils.ChoiceType, this column type is compatible
+    with Flask Migrate script generation, unlike the former.
+    """
+
+    def __init__(self, length=255, choices=_EMPTY_CHOICE, impl=None):
+        super().__init__(choices, impl)
 
 
 class DbModel(DeclarativeBase):
