@@ -5,6 +5,7 @@ from ..core.utils import exclude
 from .models import (
     Ministry,
     Person,
+    Preaching,
     SitePage,
 )
 
@@ -117,5 +118,38 @@ class MinistriesAdmin(AdminAccessModelView):
         'short_description',
         'description',
         'logo_url',
+    )
+    form_edit_rules = form_create_rules
+
+
+class PreachingsAdmin(AdminAccessModelView):
+
+    model = Preaching
+
+    column_list = ('title', 'preacher', 'start_datetime',)
+    column_filters = column_list
+    column_searchable_list = ('title', 'preacher.full_name', 'description',)
+    form_columns = (
+        'uuid',
+        'created_at',
+        'updated_at',
+        'created_by',
+        'updated_by',
+        'access_node',
+        'use_unique_access',
+        'title',
+        'description',
+        'start_datetime',
+        'video_url',
+        'thumbnail_url',
+        'preacher',
+    )
+    form_create_rules = (
+        'title',
+        'description',
+        'start_datetime',
+        'video_url',
+        'thumbnail_url',
+        'preacher',
     )
     form_edit_rules = form_create_rules
