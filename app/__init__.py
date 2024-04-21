@@ -63,8 +63,17 @@ def create_app(
     admin.init_app(app)
 
     # Register modules.
-    from . import auth
-    register_module(app, auth, db.session, admin)
+    from . import (
+        auth,
+        base,
+    )
+
+    bp_modules = (
+        auth,
+        base,
+    )
+    [register_module(app, bpm, db.session, admin)
+            for bpm in bp_modules]
 
     if use_celery:
         celery_init_app(app)
