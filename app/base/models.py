@@ -133,6 +133,7 @@ class Ministry(BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True)
     short_description: Mapped[Optional[str]] = mapped_column(String(255))
     description: Mapped[Optional[str]] = mapped_column(Text)
+    logo_url: Mapped[str] = mapped_column(URLType)
 
     def __repr__(self) -> str:
         return self.name
