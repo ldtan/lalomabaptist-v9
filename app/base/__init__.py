@@ -3,7 +3,7 @@ from sqlalchemy import event
 
 
 def create_blueprint() -> Blueprint:
-    from . import admin, middleware, models, views
+    from . import admin, models, views
 
     blueprint = Blueprint('base', __name__, url_prefix='/',
             static_folder=None, template_folder=None)
@@ -19,21 +19,29 @@ def create_blueprint() -> Blueprint:
 def prepare_blueprint():
     from flask import current_app as app
 
+    from ..auth.models import AccessNode
     from ..extensions import (
         db,
         security,
     )
     from .models import (
-        Group,
-        GroupAccess,
-        AccessNode,
-        Role,
-        User,
-        UserAccess,
+        BulletinPost,
+        Event,
+        Ministry,
+        Person,
+        Preaching,
+        SitePage,
     )
 
     try:
-        models = ()
+        models = (
+            BulletinPost,
+            Event,
+            Ministry,
+            Person,
+            Preaching,
+            SitePage,
+        )
         
         if not all(db.engine.dialect.has_table(db.session.connection(),
                 model.__table__.name, model.__table__.schema) for model in models):

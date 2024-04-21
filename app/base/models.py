@@ -5,6 +5,7 @@ from datetime import (
 from typing import (
     List,
     Optional,
+    Tuple,
 )
 
 from sqlalchemy import (
@@ -34,6 +35,7 @@ from ..auth.models import (
     WriterMixin,
 )
 from ..core.database import (
+    ChoiceType,
     DateTimeTrackerMixin,
     UuidMixin,
 )
@@ -157,15 +159,57 @@ class Event(BaseModel):
     __tablename__ = 'events'
     access_node_full_name = f"base.{__tablename__}"
 
+    REPEAT_CHOICES: Tuple[Tuple[str, str]] = (
+        ('weekly', 'Weekly'),
+        ('monthly', 'Monthly'),
+        ('yearly', 'Yearly'),
+    )
+    REPEAT_ON_CHOICES: Tuple[Tuple[str, str]] = (
+        ('sun', 'Sunday'),
+        ('mon', 'Monday'),
+        ('tue', 'Tuesday'),
+        ('wed', 'Wednesday'),
+        ('thu', 'Thursday'),
+        ('fri', 'Friday'),
+        ('sat', 'Saturday'),
+    )
+
     name: Mapped[str] = mapped_column(String(255))
     short_description: Mapped[Optional[str]] = mapped_column(String(255))
     description: Mapped[Optional[str]] = mapped_column(Text)
     venue: Mapped[Optional[str]] = mapped_column(String(255))
     start_datetime: Mapped[datetime] = mapped_column(DateTime)
     end_datetime: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    repeat: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
+    repeat: Mapped[Optional[List[str]]] = mapped_column(
+            ChoiceType(REPEAT_CHOICES))
     repeat_on: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
     include_time: Mapped[bool] = mapped_column(Boolean, default=True)
 
     def __repr__(self) -> str:
         return self.name
+    
+
+class BulletinPost(BaseModel):
+
+    __tablename__ = 'bulletin_posts'
+    access_node_full_name = f"base.{__tablename__}"
+
+    IMAGE_POSITION_CHOICES: Tuple[Tuple[str, str]] = (
+        ('top', 'Top'),
+        ('bottom', 'Bottom'),
+        ('overlay', 'Overlay'),
+    )
+    DISPLAY_CHOICES: Tuple[Tuple[str, str]] = (
+        ('content', 'Content'),
+        ('title', 'Title'),
+        ('image', 'Image'),
+    )
+
+    title: Mapped[Optional[str]] = mapped_column(String(255))
+    content: Mapped[str] = mapped_column(Text)
+    source: Mapped[Optional[str]] = mapped_column(String(255))
+    image_url: Mapped[Optional[str]] = mapped_column(URLType)
+    image_position: Mapped[Optional[str]] = mapped_column(
+            ChoiceType(IMAGE_POSITION_CHOICES))
+    display: Mapped[List[str]] = mapped_column(ScalarListType(str))
+    pinned_until: Mapped[Optional[datetime]] = mapped_column(DateTime)
