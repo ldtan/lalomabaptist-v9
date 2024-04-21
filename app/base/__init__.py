@@ -8,11 +8,13 @@ def create_blueprint() -> Blueprint:
     blueprint = Blueprint('base', __name__, url_prefix='/',
             static_folder=None, template_folder=None)
     
-    blueprint.admin_views = ()
+    blueprint.admin_views = (
+        admin.PeopleAdmin,
+        admin.SitePagesAdmin,
+        admin.MinistriesAdmin,
+    )
     
     # blueprint.add_url_rule('/', view_func=views.index)
-    # blueprint.add_url_rule('/task/sleep/', view_func=views.start_task)
-    # blueprint.add_url_rule('/task/<id>/', view_func=views.get_task)
 
     return blueprint
 
