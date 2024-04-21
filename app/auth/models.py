@@ -162,7 +162,7 @@ class AccessNode(AuthModel):
         return cls.get_by_full_name(cls.access_node_full_name) \
                 if cls.access_node_full_name else None
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.full_name
     
     @hybrid_property
@@ -491,7 +491,7 @@ class Group(AuthModel, GranularAccessMixin):
     def get_by_name(cls, name: str) -> Optional['Group']:
         return cls.query.filter_by(name=name).first()
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.name
     
 
@@ -517,7 +517,7 @@ class UserAccess(AuthModel):
     user: Mapped[User] = relationship(back_populates='accesses')
     role: Mapped[Role] = relationship(back_populates='user_accesses')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.access + ': ' + self.user + ' => ' + self.role
     
 
@@ -543,5 +543,5 @@ class GroupAccess(AuthModel):
     group: Mapped[Group] = relationship(back_populates='accesses')
     role: Mapped[Role] = relationship(back_populates='group_accesses')
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self.access + ': ' + self.group + ' => ' + self.role
