@@ -146,6 +146,7 @@ class Preaching(BaseModel):
 
     title: Mapped[str] = mapped_column(String(255))
     description: Mapped[Optional[str]] = mapped_column(Text)
+    start_datetime: Mapped[Optional[datetime]] = mapped_column(DateTime)
     video_url: Mapped[Optional[str]] = mapped_column(URLType)
     thumbnail_url: Mapped[Optional[str]] = mapped_column(URLType)
     preacher_id: Mapped[Optional[int]] = mapped_column(Integer, 
