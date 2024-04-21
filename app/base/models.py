@@ -148,7 +148,10 @@ class Preaching(BaseModel):
     video_url: Mapped[Optional[str]] = mapped_column(URLType)
     thumbnail_url: Mapped[Optional[str]] = mapped_column(URLType)
     preacher_id: Mapped[Optional[int]] = mapped_column(Integer, 
-            ForeignKey('users.id'))
+            ForeignKey('people.id'))
+    
+    preacher: Mapped[Optional[Person]] = relationship(
+            foreign_keys=[preacher_id])
 
     def __repr__(self) -> str:
         return self.title
