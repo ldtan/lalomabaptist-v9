@@ -166,3 +166,6 @@ class Event(BaseModel):
     repeat: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
     repeat_on: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
     include_time: Mapped[bool] = mapped_column(Boolean, default=True)
+
+    def __repr__(self) -> str:
+        return self.name
