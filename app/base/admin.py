@@ -1,8 +1,13 @@
+from flask_admin.form.fields import Select2Field
+
 from ..auth.admin import (
     AdminAccessModelView,
 )
+from ..core.admin import Select2MultipleField
 from ..core.utils import exclude
 from .models import (
+    BulletinPost,
+    Event,
     Ministry,
     Person,
     Preaching,
@@ -145,11 +150,113 @@ class PreachingsAdmin(AdminAccessModelView):
         'preacher',
     )
     form_create_rules = (
+        'access_node',
+        'use_unique_access',
         'title',
         'description',
         'start_datetime',
         'video_url',
         'thumbnail_url',
         'preacher',
+    )
+    form_edit_rules = form_create_rules
+
+
+class EventsAdmin(AdminAccessModelView):
+
+    model = Event
+
+    column_list = ('name', 'short_description', 'venue', 'start_datetime',)
+    column_filters = column_list
+    column_searchable_list = ('name', 'short_description', 'venue',)
+    form_args = {
+        'repeat': {'choices': Event.REPEAT_CHOICES},
+        'repeat_on': dict(
+            render_kw={'multiple': 'multiple'},
+            choices=Event.REPEAT_ON_CHOICES,
+        ),
+    }
+    form_overrides = {
+        'repeat': Select2Field,
+        'repeat_on': Select2MultipleField,
+    }
+    form_columns = (
+        'uuid',
+        'created_at',
+        'updated_at',
+        'created_by',
+        'updated_by',
+        'access_node',
+        'use_unique_access',
+        'name',
+        'short_description',
+        'description',
+        'venue',
+        'start_datetime',
+        'end_datetime',
+        'repeat',
+        'repeat_on',
+        'include_time',
+    )
+    form_create_rules = (
+        'access_node',
+        'use_unique_access',
+        'name',
+        'short_description',
+        'description',
+        'venue',
+        'start_datetime',
+        'end_datetime',
+        'repeat',
+        'repeat_on',
+        'include_time',
+    )
+    form_edit_rules = form_create_rules
+
+
+class BulletinPostsAdmin(AdminAccessModelView):
+
+    model = BulletinPost
+
+    column_list = ('title', 'content', 'source', 'pinned_until',)
+    column_filters = column_list
+    column_searchable_list = ('title', 'content', 'source',)
+    form_args = {
+        'image_position': {'choices': BulletinPost.IMAGE_POSITION_CHOICES},
+        'display': dict(
+            render_kw={'multiple': 'multiple'},
+            choices=BulletinPost.DISPLAY_CHOICES,
+        ),
+    }
+    form_overrides = {
+        'image_position': Select2Field,
+        'display': Select2MultipleField,
+    }
+    form_columns = (
+        'uuid',
+        'created_at',
+        'updated_at',
+        'created_by',
+        'updated_by',
+        'access_node',
+        'use_unique_access',
+        'title',
+        'content',
+        'source',
+        'image_url',
+        'image_position',
+        'display',
+        'pinned_until',
+    )
+    form_create_rules = (
+        'access_node',
+        'use_unique_access',
+        'title',
+        'content',
+        'source',
+        'image_url',
+        'image_position',
+        'display',
+        'pinned_until',
     )
     form_edit_rules = form_create_rules

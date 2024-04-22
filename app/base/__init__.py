@@ -9,6 +9,8 @@ def create_blueprint() -> Blueprint:
             static_folder=None, template_folder=None)
     
     blueprint.admin_views = (
+        admin.BulletinPostsAdmin,
+        admin.EventsAdmin,
         admin.MinistriesAdmin,
         admin.PeopleAdmin,
         admin.PreachingsAdmin,
