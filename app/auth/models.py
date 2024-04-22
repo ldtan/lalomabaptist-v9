@@ -25,7 +25,6 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 from sqlalchemy.exc import (
-    IntegrityError,
     NoResultFound,
 )
 from sqlalchemy.ext.declarative import declared_attr
