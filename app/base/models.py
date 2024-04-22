@@ -35,7 +35,6 @@ from ..auth.models import (
     WriterMixin,
 )
 from ..core.database import (
-    ChoiceType,
     DateTimeTrackerMixin,
     UuidMixin,
 )
@@ -185,8 +184,7 @@ class Event(BaseModel):
     venue: Mapped[Optional[str]] = mapped_column(String(255))
     start_datetime: Mapped[datetime] = mapped_column(DateTime)
     end_datetime: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    repeat: Mapped[Optional[List[str]]] = mapped_column(
-            ChoiceType(REPEAT_CHOICES))
+    repeat: Mapped[Optional[List[str]]] = mapped_column(String(255))
     repeat_on: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
     include_time: Mapped[bool] = mapped_column(Boolean, default=True)
 
@@ -214,7 +212,6 @@ class BulletinPost(BaseModel):
     content: Mapped[str] = mapped_column(Text)
     source: Mapped[Optional[str]] = mapped_column(String(255))
     image_url: Mapped[Optional[str]] = mapped_column(URLType)
-    image_position: Mapped[Optional[str]] = mapped_column(
-            ChoiceType(IMAGE_POSITION_CHOICES))
+    image_position: Mapped[Optional[str]] = mapped_column(String(255))
     display: Mapped[List[str]] = mapped_column(ScalarListType(str))
     pinned_until: Mapped[Optional[datetime]] = mapped_column(DateTime)
