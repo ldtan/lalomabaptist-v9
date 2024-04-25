@@ -1,3 +1,4 @@
+from os import path
 from types import ModuleType
 from typing import (
     Any,
@@ -13,6 +14,9 @@ from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin.contrib.sqla import ModelView
 from sqlalchemy.orm import Session
+
+
+BASE_DIR: str = path.abspath(path.dirname(path.dirname(path.dirname(__file__))))
 
 
 def isclass(var: Any) -> bool:

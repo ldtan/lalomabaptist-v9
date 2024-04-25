@@ -1,7 +1,4 @@
-from os import (
-    environ,
-    path,
-)
+from os import environ
 
 
 class Config:
@@ -35,7 +32,6 @@ class Config:
     FLASK_ADMIN_FLUID_LAYOUT = True
 
     # Custom:
-    BASE_DIR = path.abspath(path.dirname(__file__))
     SUSER_EMAIL = environ.get('SUSER_EMAIL', None)
     SUSER_USERNAME = environ.get('SUSER_USERNAME', None)
     SUSER_PASSWORD = environ.get('SUSER_PASSWORD', None)

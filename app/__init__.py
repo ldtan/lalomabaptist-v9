@@ -1,11 +1,17 @@
-from os import environ
+from os import (
+    environ,
+    path,
+)
 from typing import Optional
 
 from flask import Flask
 from flask_security import SQLAlchemyUserDatastore
 from redis import Redis
 
-from .core.utils import register_module
+from .core.utils import (
+    register_module,
+    BASE_DIR,
+)
 from .core.tasks import celery_init_app
 
 
@@ -15,10 +21,16 @@ def create_app(
     ) -> Flask:
     """Flask app factory."""
 
-    app = Flask(__name__, static_folder=None, template_folder=None)
-
-    # Retrieve app configurations.
     debug = bool(environ.get('FLASK_DEBUG', 0))
+
+    static_dir = path.join(BASE_DIR, 'public') if debug else None
+    app = Flask(
+        __name__,
+        static_folder=static_dir,
+        template_folder='templates'
+    )
+    
+    # Retrieve app configurations.
     app.config.from_object('config.Development' if debug \
             else 'config.Production')
     

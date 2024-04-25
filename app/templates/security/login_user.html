@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% from "security/_macros.html" import render_field_with_errors, render_field, render_field_errors %}
+
+{% set html_attrs = dict(lang='en') %}
+{% set title = 'Log In - La Loma Baptist' %}
+
+{% block metas %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock metas %}
+
+{% block fonts %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+{% endblock fonts %}
+
+{% block favicons %}
+  <link rel="icon" href="/public/assets/images/logos/lbc-logo.png">
+{% endblock favicons %}
+
+{% block styles %}
+  <link rel="stylesheet" href="/public/plugins/bootstrap4/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/public/plugins/owlcarousel2/owl.carousel.min.css"/>
+  <link rel="stylesheet" href="/public/plugins/owlcarousel2/owl.theme.default.min.css"/>
+  <link rel="stylesheet" href="/public/assets/css/preloader.css"/>
+  <link rel="stylesheet" href="/public/assets/css/style.css"/>
+{% endblock styles %}
+
+{% block prescripts %}
+  <script src="/public/assets/js/preloader.js"></script>
+{% endblock prescripts %}
+
+{% block scripts %}
+  <script src="/public/plugins/bootstrap4/jquery.slim.min.js"></script>
+  <script src="/public/plugins/bootstrap4/popper.min.js"></script>
+  <script src="/public/plugins/bootstrap4/bootstrap.min.js"></script>
+  <script src="/public/assets/js/main.js"></script>
+{% endblock scripts %}
+
+{% block content %}
+{% block preloader %}
+  <div class="preloader"></div>
+{% endblock preloader %}
+
+<main id="siteMain">
+  <section class="bg-light">
+    <div class="container">
+      <div class="row vh-100 align-items-center justify-content-center">
+        <div class="col-12 col-md-5">
+          <div class="border rounded shadow p-4">
+            <a class="d-block text-center mb-1" href="/">
+              <img class="text-center" src="/public/assets/images/logos/lbc-logo.png" alt="LBC Logo">
+            </a>
+            <h1 class="text-center mb-4">
+              {{ _fsdomain('Login') }}
+            </h1>
+            <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
+              {{ login_user_form.hidden_tag() }}
+              {{ render_field_with_errors(login_user_form.email) }}
+              {{ render_field_with_errors(login_user_form.password) }}
+              {{ render_field_with_errors(login_user_form.remember) }}
+              {{ render_field_errors(login_user_form.csrf_token) }}
+              {{ render_field(login_user_form.submit) }}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock content %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html {{ html_attrs|default({})|xmlattr }}>
+  {% block html %}
+  <head>
+    {% block head %}
+    
+    {% block metas %}{% endblock metas %}
+
+    {% block fonts %}{% endblock fonts %}
+
+    {% block favicons %}{% endblock favicons %}
+
+    {% block styles %}{% endblock styles %}
+
+    {% block prescripts %}{% endblock prescripts %}
+
+    <title>{{ title|default('Document') }}</title>
+    {% endblock head %}
+  </head>
+  <body {{ body_attrs|default({})|xmlattr }}>
+    {% block body %}
+    {% block content %}{% endblock content %}
+
+    {% block scripts %}{% endblock scripts %}
+    {% endblock body %}
+  </body>
+  {% endblock html %}
+</html>

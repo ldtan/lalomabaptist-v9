@@ -1,0 +1,104 @@
+{% from 'partials/header.html' import render_header %}
+{% from 'partials/footer.html' import render_footer %}
+
+{% extends 'layouts/base.html' %}
+
+{% set html_attrs = dict(lang='en') %}
+{% set title = title|default('Document') + ' | La Loma Baptist Church' %}
+
+{% block metas %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock metas %}
+
+{% block fonts %}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+{% endblock fonts %}
+
+{% block favicons %}
+  <link rel="icon" href="{{ url_for('static', filename='assets/img/logos/lbc-logo.png') }}">
+{% endblock favicons %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/bootstrap4/bootstrap.min.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/owlcarousel2/owl.carousel.min.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='plugins/owlcarousel2/owl.theme.default.min.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/preloader.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}"/>
+{% endblock styles %}
+
+{% block prescripts %}
+  <script src="{{ url_for('static', filename='assets/js/preloader.js') }}"></script>
+{% endblock prescripts %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='plugins/bootstrap4/jquery.slim.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/bootstrap4/popper.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/bootstrap4/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/holder/holder.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='plugins/owlcarousel2/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+{% endblock scripts %}
+
+{% block content %}
+{% block preloader %}
+  <div class="preloader"></div>
+{% endblock preloader %}
+
+<header id="siteHeader">
+  {% block header %}
+  {% set nav_list = [
+    {
+      'title': 'Home',
+      'href': url_for('show_page', title='home'),
+    },
+    {
+      'title': 'About',
+      'href': url_for('show_page', title='about'),
+    },
+    {
+      'title': 'Preachings',
+      'href': url_for('show_page', title='preachings'),
+    },
+    {
+      'title': 'Ministries',
+      'href': url_for('show_page', title='ministries'),
+    },
+    {
+      'title': 'Contact',
+      'href': url_for('show_page', title='contact'),
+    }
+  ] %}
+
+  {{ render_header(
+    'La Loma Baptist Church',
+    logo_url=url_for('static', filename='assets/img/logos/lbc-logo.png'),
+    nav_list=nav_list,
+    active_nav=active_nav,
+  ) }}
+  {% endblock header %}
+</header>
+
+<main id="siteMain">{% block main %}{% endblock main %}</main>
+
+<footer id="siteFooter">
+  {% block footer %}
+  {% set social_links = [
+    {
+      'href': 'lalomabaptist@gmail.com',
+      'icon_class': 'bi bi-google',
+    },
+    {
+      'href': 'https://www.youtube.com/c/LaLomaBaptistChurch',
+      'icon_class': 'bi bi-youtube',
+    },
+    {
+      'href': 'https://www.facebook.com/LaLomaBaptist',
+      'icon_class': 'bi bi-facebook',
+    },
+  ] %}
+  {{ render_footer(social_links) }}
+  {% endblock footer %}
+</footer>
+{% endblock content %}
