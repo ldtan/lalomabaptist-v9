@@ -5,8 +5,13 @@ from sqlalchemy import event
 def create_blueprint() -> Blueprint:
     from . import admin, middleware, models, views
 
-    blueprint = Blueprint('auth', __name__, url_prefix='/auth',
-            static_folder=None, template_folder=None)
+    blueprint = Blueprint(
+        'auth',
+        __name__,
+        url_prefix='/auth',
+        static_folder=None,
+        template_folder=None,
+    )
     
     blueprint.admin_views = (
         admin.AccessNodesAdmin,

@@ -5,6 +5,7 @@ from os import (
 from typing import Optional
 
 from flask import Flask
+from flask_admin.menu import MenuLink
 from flask_security import SQLAlchemyUserDatastore
 from redis import Redis
 
@@ -23,11 +24,10 @@ def create_app(
 
     debug = bool(environ.get('FLASK_DEBUG', 0))
 
-    static_dir = path.join(BASE_DIR, 'public') if debug else None
     app = Flask(
         __name__,
-        static_folder=static_dir,
-        template_folder='templates'
+        static_folder='static' if debug else None,
+        template_folder='templates',
     )
     
     # Retrieve app configurations.
@@ -72,7 +72,9 @@ def create_app(
 
     # Setup Admin extension.
     from .extensions import admin
+    
     admin.init_app(app)
+    admin.add_link(MenuLink('Log Out', '/auth/logout'))
 
     # Register modules.
     from . import (
@@ -81,8 +83,8 @@ def create_app(
     )
 
     bp_modules = (
-        auth,
         base,
+        auth,
     )
     [register_module(app, bpm, db.session, admin)
             for bpm in bp_modules]

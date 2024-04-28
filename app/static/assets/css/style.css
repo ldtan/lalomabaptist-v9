@@ -1,0 +1,273 @@
+html,
+body {
+  overflow-x: hidden; /* Prevent scroll on narrow devices */
+}
+
+body {
+  font-family: "Poppins";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+section {
+  position: relative;
+}
+
+@media (max-width: 991px) {
+  .offcanvas-collapse {
+    position: fixed;
+    top: 0; /* Height of navbar */
+    bottom: 0;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow-y: auto;
+    background-color: var(--gray-dark);
+    transition: -webkit-transform .3s ease-in-out;
+    transition: transform .3s ease-in-out;
+    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  .offcanvas-collapse.open {
+    -webkit-transform: translateX(-1rem);
+    transform: translateX(-1rem); /* Account for horizontal padding on navbar */
+  }
+}
+
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  padding-bottom: 1rem;
+  margin-top: -1px;
+  overflow-x: auto;
+  color: rgba(255, 255, 255, .75);
+  text-align: center;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-underline .nav-link {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: .875rem;
+  color: var(--secondary);
+}
+
+.nav-underline .nav-link:hover {
+  color: var(--blue);
+}
+
+.nav-underline .active {
+  font-weight: 500;
+  color: var(--gray-dark);
+}
+
+.text-white-50 {
+  color: rgba(255, 255, 255, .5);
+}
+
+.bg-purple {
+  background-color: var(--purple);
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.lh-100 {
+  line-height: 1;
+}
+
+.lh-125 {
+  line-height: 1.25;
+}
+
+.lh-150 {
+  line-height: 1.5;
+}
+
+.navbar-brand > * {
+  vertical-align: middle;
+}
+
+.navbar-brand img.logo {
+  height: 3.7rem;
+  width: auto;
+  margin-right: 0.2rem;
+}
+
+.img-fluid {
+  width: 100% !important;
+  height: auto !important;
+}
+
+a.text-white-50:hover {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.card-columns {
+  column-count: 1;
+}
+
+@media (min-width: 768px) {  
+  .card-columns {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-columns {
+    column-count: 3;
+  }
+}
+
+/* Set Owl Carousel items to be equal in height */
+.owl-stage {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+/* Set Owl Carousel items to be equal in height */
+.owl-item{
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto !important;
+}
+
+.bg-parallax {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.bg-position-l {
+  background-position-x: left;
+}
+
+.bg-position-r {
+  background-position-x: right;
+}
+
+.bg-position-t {
+  background-position-y: top;
+}
+
+.bg-position-b {
+  background-position-y: bottom;
+}
+
+#siteNavbar {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition: background-color 0.4s;
+}
+
+#siteNavbar.scrolledup {
+  background-color: transparent !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#siteNavbar .navbar-brand img.logo {
+  height: 3rem;
+  width: auto;
+  border-radius: 50%;
+  background-color: #ffffff;
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+  transition: height 0.1s;
+}
+
+#siteNavbar.scrolledup .navbar-brand img.logo {
+  height: 3.7rem;
+}
+
+#siteNavbar .navbar-brand .title {
+  font-size: 1.2rem;
+  transition: font-size 0.1s;
+}
+
+#siteNavbar.scrolledup .navbar-brand .title {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 450px) {
+  #siteNavbar .navbar-brand img.logo {
+    height: 3rem;
+    /* display: none; */
+  }
+
+  #siteNavbar .navbar-brand .title {
+    font-size: 1.2rem;
+    display: none;
+  }
+}
+
+#siteNavbarFill {
+  width: 100%;
+}
+
+.bg-video {
+  width: 100vw;
+  height: 100vh;
+}
+
+.bg-video > iframe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%);
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .bg-video iframe {
+    /* height = 100 * (9 / 16) = 56.25 */
+    height: 56.25vw;
+  }
+}
+    
+@media (max-aspect-ratio: 16/9) {
+  .bg-video iframe {
+    /* width = 100 / (9 / 16) = 177.777777 */
+    width: 177.78vh;
+  }
+}
+
+#monthlyEvents .calendar-title {
+  background-color: #224277;
+}
+
+#ministryList .card .card-img-top {
+  position: relative;
+  height: 10rem;
+}
+
+#ministryList .card .card-img-top img {
+  width: 100%;
+  height: 10rem;
+  object-fit: contain;
+}

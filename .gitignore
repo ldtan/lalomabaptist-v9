@@ -137,6 +137,3 @@ migrations/
 
 # Pip Env
 Pipfile.lock
-
-# Public
-public/
