@@ -1,0 +1,16 @@
+{% extends admin_base_template %}
+
+{% block head_css %}
+  {{ super() }}
+  <link rel="stylesheet" href="/public/assets/css/preloader.css"/>
+{% endblock head_css %}
+
+{% block head %}
+  {{ super() }}
+  <script src="/public/assets/js/preloader.js"></script>
+{% endblock head %}
+
+{% block page_body %}
+  <div class="preloader"></div>
+  {{ super() }}
+{% endblock page_body %}
