@@ -1,0 +1,111 @@
+{% import 'partials/header.html' as header %}
+{% import 'partials/footer.html' as footer %}
+{% import 'partials/recent_preachings.html' as recent_preachings %}
+{% import 'partials/preaching_card.html' as preaching_card %}
+{% import 'partials/monthly_events.html' as monthly_events %}
+
+{% extends 'layouts/master.html' %}
+
+{% set title = 'Home' %}
+
+{% block scripts %}
+  {{ super() }}
+
+  <script>
+    $('#preachings .owl-carousel').owlCarousel({
+      loop: true,
+      margin: 10,
+      nav: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        768: {
+          items: 2
+        },
+        992: {
+          items: 3
+        }
+      },
+      autoplay: true,
+      autoplayTimeout: 5000,
+      autoplayHoverPause: true,
+    });
+  </script>
+{% endblock scripts %}
+
+{% block header %}
+  {{ header.render(active_nav=['Home']) }}
+{% endblock header %}
+
+{% block main %}
+  <section id="billboard">
+    <div class="bg-video">
+      <iframe
+        frameborder="0"
+        src="https://www.youtube.com/embed/zFIes3h-OwU?controls=0&amp;start=6&end=117&&autoplay=1&mute=1&playsinline=1&playlist=zFIes3h-OwU&loop=1">
+      </iframe>
+    </div>
+    {# <div class="vh-100 bg-dark" style="background-image: url('{{ billboard_cover_url }}'); background-size: cover; background-attachment: fixed; background-position: top left;"></div> #}
+  </section>
+
+  <section id="schedule" class="py-4 bg-info">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-lg-3">
+        <div class="col text-center mb-4 mb-lg-0">
+          <h2>8:30 AM - 11:30 AM</h2>
+          <h6 class="text-white">Sunday Morning Worship Service</h6>
+        </div>
+  
+        <div class="col text-center mb-4 mb-lg-0">
+          <h2>5:00 PM - 7:00 PM</h2>
+          <h6 class="text-white">Sunday Afternoon Worship Service</h6>
+        </div>
+  
+        <div class="col text-center">
+          <h2>6:30 PM - 8:30 PM</h2>
+          <h6 class="text-white">Wednesday Night Prayer Meeting</h6>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="intro" class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>About Us</h1>
+          <hr class="mb-3">
+        </div>
+  
+        <div class="col-12 order-12 col-lg-6 order-1">
+          <p class="text-justify">"The church that preaches what the Bible teaches."</p>
+          <p class="text-justify">We are a group of believers whose foundation is anchored on the
+              Word of God, the BIBLE. We firmly believe on the power of the gospel, which is the
+              death, burial and resurrection of our Lord, Jesus Christ, who came to redeem us from
+              our sins with His precious blood that we may obtain eternal life. That JESUS CHRIST
+              ALONE is our only SAVIOR, and no amount of good works can save us from the fires of
+              hell.</p>
+          <p class="text-justify">We also believe that anyone can come and accept Him as his/her
+              PERSONAL SAVIOUR by faith; for HE alone has the power to transform lives through the
+              power of the HOLY SPIRIT so that one can truly experience abundant and joyful life
+              here on earth.</p>
+          <p class="text-justify">COME!!! Learn and worship with us and witness the mighty power of
+              God through, JESUS CHRIST alone.</p>
+        </div>
+  
+        <div class="col-12 order-1 col-lg-4 offset-lg-1 order-12">
+          <img src="/base/static/assets/images/lbc-new-bldg.jpg" alt="LBC Building" class="img-fluid mb-4 mb-lg-0">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preachings" class="py-5">
+    {{ recent_preachings.render(models, 9) }}
+  </section>
+
+  <section id="monthlyEvents">
+    {{ monthly_events.render(models) }}
+  </section>
+{% endblock main %}

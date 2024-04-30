@@ -12,7 +12,17 @@
 
     {% block styles %}{% endblock styles %}
 
-    {% block prescripts %}{% endblock prescripts %}
+    {% block prescripts %}
+      {% if not session.get('tz', False) %}
+        <script>
+          var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          var url = new URL(window.location.href);
+
+          url.searchParams.set('tz', tz);
+          window.location.replace(url);
+        </script>
+      {% endif %}
+    {% endblock prescripts %}
 
     <title>{{ title|default('Document') }}</title>
     {% endblock head %}

@@ -1,3 +1,5 @@
+from os import environ
+
 from flask import Blueprint
 from sqlalchemy import event
 
@@ -5,12 +7,15 @@ from sqlalchemy import event
 def create_blueprint() -> Blueprint:
     from . import admin, models, views
 
+    debug = bool(environ.get('FLASK_DEBUG', 0))
+
     blueprint = Blueprint(
         'base',
         __name__,
         url_prefix='/',
-        static_folder=None,
-        template_folder=None,
+        static_folder='static' if debug else None,
+        static_url_path='/base/static',
+        template_folder='templates',
     )
     
     blueprint.admin_views = (
@@ -22,7 +27,15 @@ def create_blueprint() -> Blueprint:
         admin.SitePagesAdmin,
     )
     
-    # blueprint.add_url_rule('/', view_func=views.index)
+    blueprint.add_url_rule(
+        '/',
+        view_func=views.display_page,
+        defaults={'title': 'home'},
+    )
+    blueprint.add_url_rule(
+        '/<string:title>',
+        view_func=views.display_page
+    )
 
     return blueprint
 

@@ -1,0 +1,31 @@
+{% set social_links = [
+  {
+    'href': 'lalomabaptist@gmail.com',
+    'icon_class': 'bi bi-google',
+  },
+  {
+    'href': 'https://www.youtube.com/c/LaLomaBaptistChurch',
+    'icon_class': 'bi bi-youtube',
+  },
+  {
+    'href': 'https://www.facebook.com/LaLomaBaptist',
+    'icon_class': 'bi bi-facebook',
+  },
+] %}
+
+{% macro render() %}
+  <div class="py-3 bg-dark">
+    <div class="container text-center">
+      <ul class="list-unstyled my-0">
+        {% for social_link in social_links %}
+          <li class="list-inline-item{{ ' mr-4' if not loop.last else '' }}">
+            <h5><a class="{{ social_link['icon_class'] }} text-white-50" href="{{ social_link['href'] }}"></a></h5>
+          </li>
+        {% endfor %}
+      </ul>
+      <div class="text-muted">
+        &copy; {{ datetime.utcnow().strftime('%Y') }} La Loma Baptist Church
+      </div>
+    </div>
+  </div>
+{% endmacro %}

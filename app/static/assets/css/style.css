@@ -241,6 +241,7 @@ a.text-white-50:hover {
   width: 100vw;
   height: 100vh;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 @media (min-aspect-ratio: 16/9) {

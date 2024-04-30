@@ -1,3 +1,4 @@
+from datetime import datetime
 from os import path
 from types import ModuleType
 from typing import (
@@ -9,11 +10,14 @@ from typing import (
 from flask import (
     Blueprint,
     Flask,
+    session,
 )
 from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin.contrib.sqla import ModelView
+from pytz import timezone
 from sqlalchemy.orm import Session
+import pytz
 
 
 BASE_DIR: str = path.abspath(path.dirname(path.dirname(path.dirname(__file__))))
@@ -23,6 +27,22 @@ def isclass(var: Any) -> bool:
     """Returns True if var is a class type, else False."""
 
     return isinstance(var, type)
+
+def utcnow() -> datetime:
+    return datetime.now(timezone('UTC'))
+
+def render_datetime(
+        dt: datetime,
+        format: str = '%Y-%m-%d %H:%M:%S %Z%z'
+    ) -> str:
+
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone('UTC'))
+
+    tz = session.get('tz', 'UTC')
+    local_dt = dt.astimezone(timezone(tz))
+
+    return local_dt.strftime(format)
 
 def register_module(app: Flask, module: ModuleType,
         db_session: Optional[Session] = None, admin: Optional[Admin] = None):

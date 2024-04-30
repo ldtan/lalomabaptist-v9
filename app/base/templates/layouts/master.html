@@ -1,8 +1,10 @@
+{% import 'partials/header.html' as header %}
+{% import 'partials/footer.html' as footer %}
+
 {% extends 'layouts/base.html' %}
-{% from "security/_macros.html" import render_field_with_errors, render_field, render_field_errors %}
 
 {% set html_attrs = dict(lang='en') %}
-{% set title = 'Log In - La Loma Baptist' %}
+{% set title = title|default('Document') + ' | La Loma Baptist Church' %}
 
 {% block metas %}
   <meta charset="utf-8">
@@ -27,6 +29,8 @@
 {% endblock styles %}
 
 {% block prescripts %}
+  {{ super() }}
+  
   <script src="/static/assets/js/preloader.js"></script>
 {% endblock prescripts %}
 
@@ -34,38 +38,27 @@
   <script src="/static/plugins/bootstrap4/jquery.slim.min.js"></script>
   <script src="/static/plugins/bootstrap4/popper.min.js"></script>
   <script src="/static/plugins/bootstrap4/bootstrap.min.js"></script>
+  <script src="/static/plugins/holder/holder.min.js"></script>
+  <script src="/static/plugins/owlcarousel2/owl.carousel.min.js"></script>
   <script src="/static/assets/js/main.js"></script>
 {% endblock scripts %}
 
 {% block content %}
-{% block preloader %}
-  <div class="preloader"></div>
-{% endblock preloader %}
+  {% block preloader %}
+    <div class="preloader"></div>
+  {% endblock preloader %}
 
-<main id="siteMain">
-  <section class="bg-light">
-    <div class="container">
-      <div class="row vh-100 align-items-center justify-content-center">
-        <div class="col-12 col-md-5">
-          <div class="border rounded shadow p-4">
-            <a class="d-block text-center mb-1" href="/">
-              <img class="text-center" src="/static/assets/images/lbc-logo.png" alt="LBC Logo">
-            </a>
-            <h1 class="text-center mb-4">
-              {{ _fsdomain('Login') }}
-            </h1>
-            <form action="{{ url_for_security('login') }}" method="POST" name="login_user_form">
-              {{ login_user_form.hidden_tag() }}
-              {{ render_field_with_errors(login_user_form.email) }}
-              {{ render_field_with_errors(login_user_form.password) }}
-              {{ render_field_with_errors(login_user_form.remember) }}
-              {{ render_field_errors(login_user_form.csrf_token) }}
-              {{ render_field(login_user_form.submit) }}
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
+  <header id="siteHeader">
+    {% block header %}
+      {{ header.render() }}
+    {% endblock header %}
+  </header>
+
+  <main id="siteMain">{% block main %}{% endblock main %}</main>
+
+  <footer id="siteFooter">
+    {% block footer %}
+      {{ footer.render() }}
+    {% endblock footer %}
+  </footer>
 {% endblock content %}

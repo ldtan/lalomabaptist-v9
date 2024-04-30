@@ -1,3 +1,7 @@
+from datetime import (
+    date,
+    datetime,
+)
 from os import (
     environ,
     path,
@@ -6,11 +10,15 @@ from typing import Optional
 
 from flask import Flask
 from flask_admin.menu import MenuLink
-from flask_security import SQLAlchemyUserDatastore
+from flask_security import (
+    SQLAlchemyUserDatastore,
+    current_user,
+)
 from redis import Redis
 
 from .core.utils import (
     register_module,
+    render_datetime,
     BASE_DIR,
 )
 from .core.tasks import celery_init_app
@@ -88,6 +96,19 @@ def create_app(
     )
     [register_module(app, bpm, db.session, admin)
             for bpm in bp_modules]
+    
+    # Add additional context to templates.
+    app.jinja_env.globals.update({
+        'date': date,
+        'datetime': datetime,
+        # 'convert_utc_to_local': convert_utc_to_local,
+        'current_user': current_user,
+        'render_datetime': render_datetime,
+    })
+
+    # Add middlewares.
+    from . import middleware
+    app.before_request(middleware.set_tz)
 
     if use_celery:
         celery_init_app(app)

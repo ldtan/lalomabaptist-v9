@@ -28,7 +28,6 @@ jQuery(document).ready(function ($) {
   function syncNavbarFill() {
     var navbar = $('#siteNavbar');
     $('#siteNavbarFill').css('height', `${navbar.outerHeight()}px`);
-    console.log(navbar.outerHeight());
   }
   
   $('[data-toggle="offcanvas"], .navbar-nav > li > .nav-link').on('click', function () {

@@ -1,0 +1,17 @@
+{% macro render(preaching) %}
+  <div class="card h-100">
+    <img class="card-img-top img-fluid" src="{{ preaching.thumbnail_url }}" alt="Preaching Thumbnail">
+    <div class="card-body">
+      <h5 class="card-title">{{ preaching.title }}</h5>
+      <h6 class="card-subtitle text-muted mb-3">{{ preaching.preacher or 'TBA' }}</h6>
+      {% if preaching.video_url %}
+        <a class="card-link" href="{{ preaching.video_url }}" target="_blank">Watch</a>
+      {% else %}
+        <span class="card-link">Watch</span>
+      {% endif %}
+    </div>
+    <div class="card-footer text-muted">
+      {{ render_datetime(preaching.start_datetime, '%A, %b. %d, %Y (%I:%M %p)') }}
+    </div>
+  </div>
+{% endmacro %}

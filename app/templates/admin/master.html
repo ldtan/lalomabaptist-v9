@@ -8,6 +8,16 @@
 {% block head %}
   {{ super() }}
   <script src="/static/assets/js/preloader.js"></script>
+
+  {% if not session.get('tz', False) %}
+    <script>
+      var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      var url = new URL(window.location.href);
+
+      url.searchParams.set('tz', tz);
+      window.location.replace(url);
+    </script>
+  {% endif %}
 {% endblock head %}
 
 {% block page_body %}

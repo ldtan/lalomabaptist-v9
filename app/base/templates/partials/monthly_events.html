@@ -1,0 +1,29 @@
+{% macro render(models) %}
+  {% set Event = models.get('Event', None) %}
+  {% set utcnow = datetime.utcnow() %}
+  {% set month_cover_url = '/base/static/assets/images/lbc-calendar-cover-2024-{}.jpg'.format(render_datetime(utcnow, '%m')) %}
+  {% set month_events = [] %}
+
+  <img class="img-fluid" src="{{ month_cover_url }}" alt="Calendar Cover">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="calendar-title p-4{{ ' col-12 col-md-6' if month_events|length % 2 == 1 else ' col-12' }}">
+        <h1 class="text-white">{{ render_datetime(utcnow, '%Y') }}</h1>
+        <h2 class="text-warning">{{ render_datetime(utcnow, '%B') }}</h2>
+      </div>
+      {% if month_events %}
+        {% for event in month_events %}
+          <div class="col-12 col-md-6 bg-light p-4">
+            <h3>{{ event.name }}</h3>
+            <ul class="list-unstyled">
+              <li><i class="bi bi-calendar-event mr-2"></i>{{ render_datetime(event.start_datetime, '%A, %b. %d, %Y') if event.start_datetime else 'TBA' }}</li>
+              <li><i class="bi bi-geo-alt-fill mr-2"></i>{{ event.venue or 'TBA' }}</li>
+            </ul>
+            <p>{{ event.description or 'No further details for this event.' }}</p>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endmacro %}
