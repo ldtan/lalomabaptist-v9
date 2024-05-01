@@ -14,13 +14,7 @@
 
     {% block prescripts %}
       {% if not session.get('tz', False) %}
-        <script>
-          var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-          var url = new URL(window.location.href);
-
-          url.searchParams.set('tz', tz);
-          window.location.replace(url);
-        </script>
+        <script src="/static/assets/js/local.js"></script>
       {% endif %}
     {% endblock prescripts %}
 

@@ -1,8 +1,8 @@
 {% import 'partials/header.html' as header %}
 {% import 'partials/footer.html' as footer %}
 {% import 'partials/recent_preachings.html' as recent_preachings %}
-{% import 'partials/preaching_card.html' as preaching_card %}
 {% import 'partials/monthly_events.html' as monthly_events %}
+{% import 'partials/bulletin_board.html' as bulletin_board %}
 
 {% extends 'layouts/master.html' %}
 
@@ -107,5 +107,9 @@
 
   <section id="monthlyEvents">
     {{ monthly_events.render(models) }}
+  </section>
+  
+  <section id="bulletinBoard" class="py-5">
+    {{ bulletin_board.render(models, 12) }}
   </section>
 {% endblock main %}

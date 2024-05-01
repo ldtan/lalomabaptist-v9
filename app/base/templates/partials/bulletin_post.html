@@ -1,0 +1,26 @@
+{% macro render(post) %}
+  {% set display_style = post.display %}
+  {% set image_position = post.image_position %}
+
+  <div class="card">
+    {% if 'img' in display %}
+      {% if image_position in ['top', 'bottom'] %}
+        {% set class_img_position = 'card-img-' + image_position %}
+      {% endif %}
+      <img src="{{ post.image_url }}" alt="{{ post.title }}" class="img-fluid {{ class_img_position }}" />
+    {% endif %}
+    {% if 'title' in display or 'content' in display %}
+      <blockquote class="{{ 'card-img-overlay' if image_position == 'overlay' else 'card-body'}} blockquote mb-0">
+        {% if 'title' in display %}
+          <h4 class="card-title">{{ post.title }}</h4>
+        {% endif %}
+        {% if 'content' in display %}
+          <p>{{ post.content }}</p>
+          <footer class="blockquote-footer text-right">
+            <small class="text-muted">{{ post.source or 'Anonymous' }}</small>
+          </footer>
+        {% endif %}
+      </blockquote>
+    {% endif %}
+  </div>
+{% endmacro %}

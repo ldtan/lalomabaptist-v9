@@ -17,6 +17,7 @@ from flask_security import (
 from redis import Redis
 
 from .core.utils import (
+    convert_to_local_datetime,
     register_module,
     render_datetime,
     BASE_DIR,
@@ -101,7 +102,7 @@ def create_app(
     app.jinja_env.globals.update({
         'date': date,
         'datetime': datetime,
-        # 'convert_utc_to_local': convert_utc_to_local,
+        'convert_to_local_datetime': convert_to_local_datetime,
         'current_user': current_user,
         'render_datetime': render_datetime,
     })

@@ -31,17 +31,19 @@ def isclass(var: Any) -> bool:
 def utcnow() -> datetime:
     return datetime.now(timezone('UTC'))
 
+def convert_to_local_datetime(dt: datetime) -> datetime:
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone('UTC'))
+
+    tz = session.get('tz', 'UTC')
+    return dt.astimezone(timezone(tz))
+
 def render_datetime(
         dt: datetime,
         format: str = '%Y-%m-%d %H:%M:%S %Z%z'
     ) -> str:
 
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone('UTC'))
-
-    tz = session.get('tz', 'UTC')
-    local_dt = dt.astimezone(timezone(tz))
-
+    local_dt = convert_to_local_datetime(dt)
     return local_dt.strftime(format)
 
 def register_module(app: Flask, module: ModuleType,

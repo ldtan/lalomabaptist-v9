@@ -1,0 +1,28 @@
+{% import 'partials/bulletin_post.html' as bulletin_post %}
+
+{% macro render(models, limit) %}
+  {% set BulletinPost = models.get('BulletinPost', None) %}
+  {% set limit = limit|default(12) %}
+  {% set post_query = BulletinPost.authorized_query().order_by(BulletinPost.created_at.desc()) %}
+  {% set recent_posts = post_query.filter(BulletinPost.pinned_until >= datetime.utcnow()).all() %}
+  {% set recent_posts = recent_posts + post_query.filter_by(pinned_until=None).limit(9).all() %}
+
+  <div class="container">
+    <h1 class="text-center">Bulletin Board</h1>
+    <hr class="mb-3">
+
+    {% if recent_posts %}
+      <div class="card-columns">
+        {% for post in recent_posts %}
+          {{ bulletin_post.render(post) }}
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="row">
+        <div class="col">
+          <h5 class="text-center text-muted">No items found.</h5>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}
