@@ -1,0 +1,78 @@
+{% import 'partials/header.html' as header %}
+{% import 'partials/preaching_card.html' as preaching_card %}
+
+{% extends 'layouts/master.html' %}
+
+{% set title = 'Preachings' %}
+{% set Preaching = models.get('Preaching', None) %}
+{% set page_no = request.args.get('page', 1) %}
+{% set preachings = Preaching.authorized_query().order_by(Preaching.start_datetime.desc()).paginate(page=page_no, per_page=12, error_out=False) %}
+
+{% block styles %}
+  {{ super() }}
+
+  <style>
+    #siteNavbar.scrolledup {
+      background-color: #343a40 !important;
+    }
+  </style>
+{% endblock styles %}
+
+{% block header %}
+  {{ header.render(active_nav=['Preachings']) }}
+
+  <div id="siteNavbarFill"></div>
+{% endblock header %}
+
+{% block main %}
+  <section id="preachingList" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center">Preachings</h1>
+          <hr class="mb-3">
+        </div>
+      </div>
+  
+      <div class="row row-cols-1 justify-content-center row-cols-md-2 row-cols-lg-3">
+        {% if preachings.total == 0 %}
+          <div class="col vh-100">
+            <h5 class="text-center text-muted">No items found.</h5>
+          </div>
+        {% else %}
+          {% for preaching in preachings.items %}
+            <div class="col mb-4">
+              {{ preaching_card.render(preaching) }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+  
+      <div class="row justify-content-center mt-4">
+        <nav aria-label="Preaching List Pages">
+          <ul class="pagination">
+            <li class="page-item{{ '' if preachings.has_prev else ' disabled' }}">
+              <a class="page-link" href="{{ url_for('base.display_page', title='preachings') }}?page={{ preachings.prev_num }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+  
+            {% for page in preachings.iter_pages() %}
+              {% if page %}
+                <li class="page-item{{ ' active' if page == preachings.page else '' }}"><a class="page-link" href="{{ url_for('base.display_page', title='preachings') }}?page={{ page }}">{{ page }}</a></li>
+              {% else %}
+                <li class="page-item disabled"><a class="page-link">...</a></li>
+              {% endif %}
+            {% endfor %}
+  
+            <li class="page-item{{ '' if preachings.has_next else ' disabled' }}">
+              <a class="page-link" href="{{ url_for('base.display_page', title='preachings') }}?page={{ preachings.next_num }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+{% endblock main %}

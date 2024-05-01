@@ -24,10 +24,7 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship,
 )
-from sqlalchemy_utils import (
-    ScalarListType,
-    URLType,
-)
+from sqlalchemy_utils import ScalarListType
 
 from ..auth.models import (
     GranularAccessMixin,
@@ -132,7 +129,7 @@ class Ministry(BaseModel):
     name: Mapped[str] = mapped_column(String(255), unique=True)
     short_description: Mapped[Optional[str]] = mapped_column(String(255))
     description: Mapped[Optional[str]] = mapped_column(Text)
-    logo_url: Mapped[str] = mapped_column(URLType)
+    logo_url: Mapped[str] = mapped_column(String(255))
 
     def __repr__(self) -> str:
         return self.name
@@ -146,8 +143,8 @@ class Preaching(BaseModel):
     title: Mapped[str] = mapped_column(String(255))
     description: Mapped[Optional[str]] = mapped_column(Text)
     start_datetime: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    video_url: Mapped[Optional[str]] = mapped_column(URLType)
-    thumbnail_url: Mapped[Optional[str]] = mapped_column(URLType)
+    video_url: Mapped[Optional[str]] = mapped_column(String(255))
+    thumbnail_url: Mapped[Optional[str]] = mapped_column(String(255))
     preacher_id: Mapped[Optional[int]] = mapped_column(Integer, 
             ForeignKey('people.id'))
     
@@ -211,7 +208,7 @@ class BulletinPost(BaseModel):
     title: Mapped[Optional[str]] = mapped_column(String(255))
     content: Mapped[str] = mapped_column(Text)
     source: Mapped[Optional[str]] = mapped_column(String(255))
-    image_url: Mapped[Optional[str]] = mapped_column(URLType)
+    image_url: Mapped[Optional[str]] = mapped_column(String(255))
     image_position: Mapped[Optional[str]] = mapped_column(String(255))
     display: Mapped[List[str]] = mapped_column(ScalarListType(str))
     pinned_until: Mapped[Optional[datetime]] = mapped_column(DateTime)

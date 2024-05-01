@@ -33,7 +33,7 @@ def create_blueprint() -> Blueprint:
         defaults={'title': 'home'},
     )
     blueprint.add_url_rule(
-        '/<string:title>',
+        '/sitepage/<string:title>',
         view_func=views.display_page
     )
 

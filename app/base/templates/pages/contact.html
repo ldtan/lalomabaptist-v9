@@ -1,0 +1,56 @@
+{% import 'partials/header.html' as header %}
+
+{% extends 'layouts/master.html' %}
+
+{% set title = current_page.title %}
+
+{% block styles %}
+  {{ super() }}
+
+  <style>
+    #siteNavbar.scrolledup {
+      background-color: #343a40 !important;
+    }
+  </style>
+{% endblock styles %}
+
+{% block header %}
+  {{ header.render(active_nav=[current_page.title]) }}
+
+  <div id="siteNavbarFill"></div>
+{% endblock header %}
+
+{% block main %}
+  <section id="mapLocation" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1>Contact</h1>
+          <hr class="mb-3">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-lg-8">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15441.914108889574!2d120.9908384!3d14.6287566!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x47d6b28a4cbf1fbb!2sLa%20Loma%20Baptist%20Church!5e0!3m2!1sen!2sph!4v1586238005460!5m2!1sen!2sph" width="100%" height="400" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
+  
+        <div class="col-12 col-lg-4 mt-4 mt-lg-0">
+          <ol class="list-unstyled">
+            <li class="mb-3">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Corner A. Bonifacio Ave, La Loma, Quezon City, Metro Manila</span>
+            </li>
+            <li class="mb-3">
+              <i class="bi bi-telephone-fill"></i>
+              <span>(02) 8 794 6951</span>
+            </li>
+            <li class="mb-3">
+              <i class="bi bi-envelope-fill"></i>
+              <a class="text-decoration-none" href="mailto:lalomabaptist@gmail.com">lalomabaptist@gmail.com</a>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock main %}

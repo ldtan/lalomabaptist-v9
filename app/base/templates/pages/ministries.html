@@ -1,0 +1,67 @@
+{% import 'partials/header.html' as header %}
+{% import 'partials/ministry_card.html' as ministry_card %}
+
+{% extends 'layouts/master.html' %}
+
+{% set title = current_page.title %}
+{% set Ministry = models.get('Ministry', None) %}
+{% set ministries = Ministry.authorized_query().order_by(Ministry.name).all() %}
+
+{% block styles %}
+  {{ super() }}
+
+  <style>
+    #siteNavbar.scrolledup {
+      background-color: #343a40 !important;
+    }
+  </style>
+{% endblock styles %}
+
+{% block scripts %}
+  {{ super() }}
+  
+  <script>
+    jQuery(document).ready(function ($) {
+      $('#ministryList .card > .card-body.collapse').on('show.bs.collapse', function () {
+        $(this).closest('.card').removeClass('border-0');
+      });
+  
+      $('#ministryList .card > .card-body.collapse').on('hide.bs.collapse', function () {
+        $(this).closest('.card').addClass('border-0');
+      });
+    });
+  </script>
+{% endblock scripts %}
+
+{% block header %}
+  {{ header.render(active_nav=[current_page.title]) }}
+
+  <div id="siteNavbarFill"></div>
+{% endblock header %}
+
+{% block main %}
+  <section id="ministryList" class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1 class="text-center">Ministries</h1>
+          <hr class="mb-3">
+        </div>
+      </div>
+  
+      <div class="row row-cols-1 justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        {% if ministries %}
+          {% for ministry in ministries %}
+            <div class="col mb-4">
+              {{ ministry_card.render(ministry) }}
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col">
+            <h5 class="text-center text-muted">No items found.</h5>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+{% endblock main %}

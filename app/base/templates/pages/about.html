@@ -1,0 +1,246 @@
+{% import 'partials/header.html' as header %}
+
+{% extends 'layouts/master.html' %}
+
+{% set title = 'About' %}
+
+{% block styles %}
+  {{ super() }}
+
+  <style>
+    #siteNavbar.scrolledup {
+      background-color: #343a40 !important;
+    }
+
+    #origin > .bg-parallax {
+      background-image: url('/base/static/assets/images/brick-wall-construction.jpg');
+      filter: opacity(20%);
+    }
+
+    #purpose > .bg-parallax {
+      background-image: url('/base/static/assets/images/ptr-preaching.jpg');
+      filter: opacity(20%);
+    }
+  </style>
+{% endblock styles %}
+
+{% block header %}
+  {{ header.render(active_nav=['About']) }}
+
+  <div id="siteNavbarFill"></div>
+{% endblock header %}
+
+{% block main %}
+  <section id="intro" class="py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>About Us</h1>
+          <hr class="mb-3">
+        </div>
+  
+        <div class="col-12 order-12 col-lg-6 order-1">
+          <p class="text-justify">"The church that preaches what the Bible teaches."</p>
+          <p class="text-justify">We are a group of believers whose foundation is anchored on the
+              Word of God, the BIBLE. We firmly believe on the power of the gospel, which is the
+              death, burial and resurrection of our Lord, Jesus Christ, who came to redeem us from
+              our sins with His precious blood that we may obtain eternal life. That JESUS CHRIST
+              ALONE is our only SAVIOR, and no amount of good works can save us from the fires of
+              hell.</p>
+          <p class="text-justify">We also believe that anyone can come and accept Him as his/her
+              PERSONAL SAVIOUR by faith; for HE alone has the power to transform lives through the
+              power of the HOLY SPIRIT so that one can truly experience abundant and joyful life
+              here on earth.</p>
+          <p class="text-justify">COME!!! Learn and worship with us and witness the mighty power of
+              God through, JESUS CHRIST alone.</p>
+        </div>
+  
+        <div class="col-12 order-1 col-lg-4 offset-lg-1 order-12">
+          <img src="/base/static/assets/images/lbc-new-bldg.jpg" alt="LBC Building" class="img-fluid mb-4 mb-lg-0">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="origin">
+    <div class="bg-parallax bg-position-r position-absolute w-100 h-100"></div>
+  
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-6">
+          <h1>Our Origin</h1>
+          <hr class="mb-3">
+          <p class="text-justify">The church was started in a small house of a Christian couple in
+              1980 thru a missionary from USA and the Lord has added more believers to this day.</p>
+          <p class="text-justify">The church moved from different locations in the area until the
+              Lord gave us this corner lots at A. Bonifacio Avenue. The Lord has used His people to
+              sacrifice to acquire these properties and build while we strive to share the Gospel
+              around us. We offer our church services every week coupled with a Sunday School for all
+              ages and personal discipleship for the purpose of teaching God's wisdom through Bible
+              Truths. We believe spiritual growth is only possible when we apply the faithfulness of
+              God's Word in our lives as individual and as a church.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-5 bg-light">
+    <div class="container">
+      <blockquote class="blockquote text-right">
+        <p class="mb-0">Let the word of Christ dwell in you richly in all wisdom; teaching and
+          admonishing one another in psalms and hymns and spiritual songs, singing with grace in your
+          hearts to the Lord.</p>
+        <footer class="blockquote-footer">2 Timothy 2:15 <cite title="Source Title">KJV</cite></footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section id="purpose">
+    <div class="bg-parallax bg-position-r bg-position-t position-absolute w-100 h-100"></div>
+  
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-6">
+          <h1>Our Purpose</h1>
+          <hr class="mb-3">
+          <p class="text-justify">To glorify god and exalt the Lord Jesus Christ through the power
+              of His spirit.</p>
+          <p class="text-justify">To serve God by bringing you to Jesus Christ and into your church
+              family. To teach you christlikeness and equip you for lifelong service in your home,
+              your church and around the world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visionMission" class="py-5">
+    <div class="container">
+      <div class="row row-cols-1">
+        <div class="col">
+          <h1 class="text-center">Vision</h1>
+          <hr class="mb-3">
+          <p class="text-center">Truly the harvest is plentiful, but the workers are few. The
+            Church's Vision is to bring the story of God's love and hope to the many people we can
+            preach, to the many places we can reach and to the many missionaries we can support for
+            the glory and honor of God.</p>
+        </div>
+  
+        <div class="col mt-4">
+          <h1 class="text-center">Mission</h1>
+          <hr class="mb-3">
+          <p class="text-center">The church, upon receiving instructions from the Word of God, has
+            the obligation to Preach and Defend the gospel of Jesus Christ to every human being all
+            around the world, to Gather and Assemble the group of believers together to a common
+            place of worship, in order to Teach them and Instill the ways, laws and doctrines of the
+            Word of God and finally, To Make Disciples and Equip Believers to Preach and to Teach to
+            others also.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="history" class="py-5 bg-light">
+    <div class="container">
+      <h1>History</h1>
+      <hr class="mb-3">
+  
+      <div class="accordion">
+        <div id="earlyDays" class="card">
+          <div class="card-header">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target="#earlyDays > .collapse" aria-expanded="true">Early Days</button>
+            </h2>
+          </div>
+  
+          <div class="collapse show">
+            <div class="card-body">
+              <p class="text-justify">An unassuming Bible study began in a small living room of the Bernardo family was the undertaking of an American missionary named Melvin Brown and his wife Carol. The attendees amounted to a mere twenty people who mostly came to see a foreign preacher and then never came back again.</p>
+              <p class="text-justify">But the good pastor was determined to share God's word, after a few weeks of meeting in Abao Street, La Loma, Quezon City, he moved this initiative to the street of Iriga where they rented a carport for their Sunday services as well as Wednesday night prayer meetings. They saw themselves growing in number and on September 27, 1980 a church organizational meeting was held wherein the Bernardos, Sebastians, Capilis to name a few of the families who became charter members of The Church.</p>
+              <p class="text-justify">Sadly, the stay in Iriga was only for a brief time because the owner of the property was not a Christian and he soon had them packing off to find another location for their ministry. They quickly relocated to an empty apartment in the street of D. Tuazon and began to grow in number. God marvelously blessed them as they were winning souls for Christ. The church saw itself supporting different missionary efforts and had a Faith Promise Conference each year as the members gave generously to the cause.</p>
+              <p class="text-justify">The very first mission church was started in Cabagan, Isabela by Bro. Willie Nell and Bro. Peralta two of the pioneer students and graduates of The Church's own Bible institute.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div id="ownPlace" class="card">
+          <div class="card-header">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target="#ownPlace > .collapse" aria-expanded="false">A Place to Call Our Own</button>
+            </h2>
+          </div>
+  
+          <div class="collapse">
+            <div class="card-body">
+              <p class="text-justify">Space became a problem in D. Tuazon Street because more and more people are being added into the family of Christ. The congregation wanted to buy a property and erect a building where they could hold weekly services. This has proven to be a difficult challenge as they didn't have any funds to meet this demand. Pastor Brown along with his staff found an empty lot in Isarog street and deemed it suitable for occupation. This was a great step for no bank would loan them money but fortunately the owner considered the thought that they should pay for the land in five years. With God's grace they were able to pay the debt in half the time required.</p>
+              <p class="text-justify">Shortly after the purchase of this land a Chinese man who happened to be a believer offered to give his Quonset hut as a place for gathering on the condition that The Church people would be the ones to disassemble it and take it off his property. They accomplished this task along with building a living quarter for the Doctor family on the agreement that they will serve as a guardian and maintain the surrounding area for services. The whole family did a splendid job at this and was truly blessing for The Church.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div id="lbci" class="card">
+          <div class="card-header">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target="#lbci > .collapse" aria-expanded="false">The La Loma Baptist Institute</button>
+            </h2>
+          </div>
+  
+          <div class="collapse">
+            <div class="card-body">
+              <p class="text-justify">As The Church became determined to prepare potential leaders for missions the birth of the La Loma Bible Institute (LBI) came. The pioneer students who entered The Institute were Emmanuel Estipona, Willie Nell, Marko Giovani Baldissseri, Juancho Balconcha, Eddie Bautista. Wilfredo Romano, Rogelio Codico, Esperanza Doctor, Rowena Opilas-Fernandez, Nelson Philip Fernandez, Redentor Opilas, Delia Quillopa (the future wife of Pastor Estipona) and Ofelia Quillopa. In 1983 the very first batch of graduates proudly wore their graduation apparel and successfully overcame the odds that were before them. Many of them served for the Lord in full time service.</p>
+            </div>
+          </div>
+        </div>
+  
+        <div id="brown" class="card">
+          <div class="card-header">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target="#brown > .collapse" aria-expanded="false">The Brown Legacy (1980 - 1987)</button>
+            </h2>
+          </div>
+  
+          <div class="collapse">
+            <div class="card-body">
+              <p class="text-justify">With God’s guidance Pastor Brown as he is fondly called was able to surpass the challenge of once again leading the congregation to trust in the Lord’s hand with regard to the need for a bigger place of worship. As the funding of a thousand dollars from the United States was quickly consumed, he set out to preach a series of messages that encouraged members to give more for the Lord. Money came in and they were able to use this to build the two-story facility that they had prayed for in two years. Truly the glory is of the Lord!</p>
+              <p class="text-justify">As the founding pastor of The Church, his faith in God and hard work brought about the salvation of countless souls and convince them to take an active part in the missions’ work. He was able to reach out and touch lives for God’s higher calling and inspire The Church to become an independent self-sustaining body by cultivating and enhancing maturity among the members.</p>
+            </div>
+          </div>
+        </div>
+  
+        <div id="emmanuel" class="card">
+          <div class="card-header">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target="#emmanuel > .collapse" aria-expanded="false">The Emmanuel Transition (1987 - 1996)</button>
+            </h2>
+          </div>
+  
+          <div class="collapse">
+            <div class="card-body">
+              <p class="text-justify">In 1987, Pastor Brown felt it was time to turn over the church to a national pastor. He saw the Spirit of God moving in the heart of a faithful disciple named Emmanuel Estipona. At that time, other missionaries thought that it was disastrous for Pastor Brown to take this course because they have reservations that the church may fail under the control of a national pastor, but the young and dynamic Pastor Estipona proved to be an ideal example of such an event. In the following years, founding missionaries soon began to follow the step of relinquishing their churches to a citizen minister.</p>
+              <p class="text-justify">Ardent in God’s desire, his leadership saw to the expansion of the mission work. Churches were built in various provinces such as Pangasinan, Isabela and Batangas. His term also saw the beginning of the Baptist Asian Missions Associations or BAMA. This organization aimed at assisting our existing churches and Bible Institutes, helping new pastors in beginning new works throughout the country and promoting interdependence and fellowship with others in the mission field. Later on, he tuned over the helm of BAMA to Pastor Nelson Fernandez whose family was later on called to East Timor and became the first graduate of The Institute to go to a foreign land for winning souls and planting churches.</p>
+              <p class="text-justify">As God called him to further the ministerial work in Pangasinan, Pastor Estipona saw it fit that he gives The Church in the care of another youthful leader named Stephen Gilbert Toquero.</p>
+              <p class="text-justify">At present Reverend Estipona is faithfully guiding and encouraging his flock to labor for the Lord in the area of Cainta and their mission outreach.</p>
+            </div>
+          </div>
+        </div>
+  
+        <div id="toquero" class="card">
+          <div class="card-header">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left text-dark" data-toggle="collapse" data-target="#toquero > .collapse" aria-expanded="false">The Toquero Tribute (1996 - 2021)</button>
+            </h2>
+          </div>
+  
+          <div class="collapse">
+            <div class="card-body">
+              <p class="text-justify">God’s purpose continues to be with The Church through Pastor Toquero’s vision of a progressive and applied Christian wisdom. Under his wing, The Church soared to greater heights that brought about the reconstruction of a four-story building in Isarog street. He challenged the The Church to have the burning passion for missions. He introduced the AWANA club, an international ministry for children to be excited in knowing God more. Pastor Mark Palmani, a visiting missionary, inspired Pastor Toquero to expand the Sunday School ministry for all ages. What used to be for children now members of The Church became teachers for Sunday School ministering to children, youth and adults.</p>
+              <p class="text-justify">Pastor Toquero’s burden for each member of The Church to share the gospel brought about the change in the soul winning program. He started inviting pastors nationwide from mission loving churches. The Church soon go to know more of the mission works in Visayas and Mindanao. This newfound friendship led to inviting Pastor Johnny Lee Narvaez’ son, John Daven, to teach the youth violin lessons. In 2005, The Church sent the youth to learn all kinds of musical instrument to form a decent orchestra.</p>
+              <p class="text-justify">Pastor Toquero’s own child, Stephen Joshua, was about to begin high school when the good pastor thought that there is a need for Christian Education. The start of the La Loma Baptist Church Academy (LBCA) was assisted by The School of Tomorrow. The growing attendance and the expanding membership needed the help of Pastor Aguinaldo Angeles as the assistant pastor and principal of LBCA.</p>
+              <p class="text-justify">The Church sent out more missionaries in the local and foreign field while The Church grew bigger. A new six-story building was erected along the corners of Isarog and A. Bonifacio streets to accommodate the much-needed classroom space of LBCA. Across this six-story building another corner lot was purchased for the housing of the staff members and the growing students of La Loma Bible College and Institute.</p>
+              <p class="text-justify">These are truly a witness of the Lord’s intention in taking the church to a higher level of service. Before he was called back home to heaven, under his leadership, The Church was able to purchase a humble lot in Sta. Maria, Bulacan in what he envisioned to be the future hospice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock main %}

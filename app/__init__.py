@@ -92,8 +92,8 @@ def create_app(
     )
 
     bp_modules = (
-        base,
         auth,
+        base,
     )
     [register_module(app, bpm, db.session, admin)
             for bpm in bp_modules]
