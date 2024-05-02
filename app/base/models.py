@@ -7,6 +7,7 @@ from typing import (
     Optional,
     Tuple,
 )
+import calendar
 
 from sqlalchemy import (
     Boolean,
@@ -185,6 +186,27 @@ class Event(BaseModel):
     # repeat_on: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
     include_time: Mapped[bool] = mapped_column(Boolean, default=True)
 
+    @classmethod
+    def get_all_by_month(cls,
+            month: int = None,
+            year: int = None
+        ) -> List['Event']:
+
+        utcnow = datetime.utcnow()
+        year = year or utcnow.year
+        month = month or utcnow.month
+        _, last_day = calendar.monthrange(year, month)
+        month_start = datetime(year, month, 1)
+        month_end = datetime(year, month, last_day, 23, 59, 59)
+
+        return cls.authorized_query()\
+                .filter(
+                    (cls.start_datetime >= month_start)
+                    & (cls.start_datetime <= month_end)
+                )\
+                .order_by(cls.start_datetime)\
+                .all()
+    
     def __repr__(self) -> str:
         return self.name
     

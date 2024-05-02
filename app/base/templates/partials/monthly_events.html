@@ -1,8 +1,12 @@
 {% macro render(models) %}
   {% set Event = models.get('Event', None) %}
-  {% set now = convert_to_local_datetime(datetime.utcnow()) %}
+  {% set utcnow = datetime.utcnow() %}
+  {% set now = convert_to_local_datetime(utcnow) %}
   {% set month_cover_url = '/base/static/assets/images/calendar/cover-{}.jpg'.format(now.strftime('%Y-%m')) %}
-  {% set month_events = [] %}
+
+  {% set year = utcnow.year %}
+  {% set month = utcnow.month %}
+  {% set month_events = Event.get_all_by_month(month, year) %}
 
   <img class="img-fluid" src="{{ month_cover_url }}" alt="Calendar Cover">
 
@@ -14,13 +18,27 @@
       </div>
       {% if month_events %}
         {% for event in month_events %}
-          <div class="col-12 col-md-6 bg-light p-4">
-            <h3>{{ event.name }}</h3>
+          <div class="col-12 col-md-6 bg-light p-4 border">
+            <h3>{{ event.title }}</h3>
             <ul class="list-unstyled">
-              <li><i class="bi bi-calendar-event mr-2"></i>{{ render_datetime(event.start_datetime, '%A, %b. %d, %Y') if event.start_datetime else 'TBA' }}</li>
-              <li><i class="bi bi-geo-alt-fill mr-2"></i>{{ event.venue or 'TBA' }}</li>
+              <li>
+                <i class="bi bi-calendar-event mr-2"></i>
+                {{ render_datetime(event.start_datetime, '%A, %b. %d, %Y') if event.start_datetime else 'TBA' }}
+              </li>
+              {% if event.include_time %}
+                <li>
+                  <i class="bi bi-clock mr-2"></i>
+                  {{ render_datetime(event.start_datetime, '%I:%M %p') if event.start_datetime else 'TBA' }}
+                </li>
+              {% endif %}
+              <li>
+                <i class="bi bi-geo-alt-fill mr-2"></i>
+                {{ event.venue or 'TBA' }}
+              </li>
             </ul>
-            <p>{{ event.description or 'No further details for this event.' }}</p>
+            {% if event.short_description %}
+              <p>{{ event.short_description }}</p>
+            {% endif %}
           </div>
         {% endfor %}
       {% endif %}
