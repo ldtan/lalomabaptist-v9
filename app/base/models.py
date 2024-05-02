@@ -175,14 +175,14 @@ class Event(BaseModel):
         ('sat', 'Saturday'),
     )
 
-    name: Mapped[str] = mapped_column(String(255))
+    title: Mapped[str] = mapped_column(String(255))
     short_description: Mapped[Optional[str]] = mapped_column(String(255))
     description: Mapped[Optional[str]] = mapped_column(Text)
     venue: Mapped[Optional[str]] = mapped_column(String(255))
     start_datetime: Mapped[datetime] = mapped_column(DateTime)
     end_datetime: Mapped[Optional[datetime]] = mapped_column(DateTime)
-    repeat: Mapped[Optional[List[str]]] = mapped_column(String(255))
-    repeat_on: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
+    # repeat: Mapped[Optional[List[str]]] = mapped_column(String(255))
+    # repeat_on: Mapped[Optional[List[str]]] = mapped_column(ScalarListType(str))
     include_time: Mapped[bool] = mapped_column(Boolean, default=True)
 
     def __repr__(self) -> str:

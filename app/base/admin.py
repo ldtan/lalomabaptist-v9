@@ -166,20 +166,20 @@ class EventsAdmin(AdminAccessModelView):
 
     model = Event
 
-    column_list = ('name', 'short_description', 'venue', 'start_datetime',)
+    column_list = ('title', 'short_description', 'venue', 'start_datetime',)
     column_filters = column_list
-    column_searchable_list = ('name', 'short_description', 'venue',)
-    form_args = {
-        'repeat': {'choices': Event.REPEAT_CHOICES},
-        'repeat_on': dict(
-            render_kw={'multiple': 'multiple'},
-            choices=Event.REPEAT_ON_CHOICES,
-        ),
-    }
-    form_overrides = {
-        'repeat': Select2Field,
-        'repeat_on': Select2MultipleField,
-    }
+    column_searchable_list = ('title', 'short_description', 'venue',)
+    # form_args = {
+    #     'repeat': {'choices': Event.REPEAT_CHOICES},
+    #     'repeat_on': dict(
+    #         render_kw={'multiple': 'multiple'},
+    #         choices=Event.REPEAT_ON_CHOICES,
+    #     ),
+    # }
+    # form_overrides = {
+    #     'repeat': Select2Field,
+    #     'repeat_on': Select2MultipleField,
+    # }
     form_columns = (
         'uuid',
         'created_at',
@@ -188,27 +188,27 @@ class EventsAdmin(AdminAccessModelView):
         'updated_by',
         'access_node',
         'use_unique_access',
-        'name',
+        'title',
         'short_description',
         'description',
         'venue',
         'start_datetime',
         'end_datetime',
-        'repeat',
-        'repeat_on',
+        # 'repeat',
+        # 'repeat_on',
         'include_time',
     )
     form_create_rules = (
         'access_node',
         'use_unique_access',
-        'name',
+        'title',
         'short_description',
         'description',
         'venue',
         'start_datetime',
         'end_datetime',
-        'repeat',
-        'repeat_on',
+        # 'repeat',
+        # 'repeat_on',
         'include_time',
     )
     form_edit_rules = form_create_rules
