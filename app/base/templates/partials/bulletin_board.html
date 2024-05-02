@@ -5,7 +5,7 @@
   {% set limit = limit|default(12) %}
   {% set post_query = BulletinPost.authorized_query().order_by(BulletinPost.created_at.desc()) %}
   {% set recent_posts = post_query.filter(BulletinPost.pinned_until >= datetime.utcnow()).all() %}
-  {% set recent_posts = recent_posts + post_query.filter_by(pinned_until=None).limit(9).all() %}
+  {% set recent_posts = recent_posts + post_query.filter(BulletinPost.pinned_until == None).limit(9).all() %}
 
   <div class="container">
     <h1 class="text-center">Bulletin Board</h1>
