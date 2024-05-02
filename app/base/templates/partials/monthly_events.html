@@ -1,7 +1,7 @@
 {% macro render(models) %}
   {% set Event = models.get('Event', None) %}
   {% set now = convert_to_local_datetime(datetime.utcnow()) %}
-  {% set month_cover_url = '/base/static/assets/images/lbc-calendar-cover-2024-{}.jpg'.format(now.strftime('%m')) %}
+  {% set month_cover_url = '/base/static/assets/images/calendar/cover-{}.jpg'.format(now.strftime('%Y-%m')) %}
   {% set month_events = [] %}
 
   <img class="img-fluid" src="{{ month_cover_url }}" alt="Calendar Cover">
