@@ -181,7 +181,7 @@ class AdminModelView(ModelView):
         if self.has_create_permission():
             return super().create_view()
         else:
-            flash(gettext('User has no permission to create an item.'), 'error')
+            flash(gettext('User has no permission to create a record.'), 'error')
             return redirect(return_url)
     
     @expose('/details/')
@@ -192,7 +192,7 @@ class AdminModelView(ModelView):
         if self.has_details_permission(self.model.query.get(item_id)):
             return super().details_view()
         else:
-            flash(gettext('User has no permission to view this item.'), 'error')
+            flash(gettext('User has no permission to view this record.'), 'error')
             return redirect(return_url)
     
     @expose('/edit/', methods=('GET', 'POST'))
@@ -203,7 +203,7 @@ class AdminModelView(ModelView):
         if self.has_edit_permission(self.model.query.get(item_id)):
             return super().edit_view()
         else:
-            flash(gettext('User has no permission to edit this item.'), 'error')
+            flash(gettext('User has no permission to edit this record.'), 'error')
             return redirect(return_url)
     
     @expose('/delete/', methods=('POST',))
@@ -214,5 +214,5 @@ class AdminModelView(ModelView):
         if self.has_delete_permission(self.model.query.get(form.id.data)):
             return super().delete_view()
         else:
-            flash(gettext('User has no permission to delete this item.'), 'error')
+            flash(gettext('User has no permission to delete this record.'), 'error')
             return redirect(return_url)
