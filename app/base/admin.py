@@ -169,8 +169,8 @@ class PreachingsAdmin(AdminAccessModelView):
             try:
                 yt_video = YouTube(model.video_url)
                 model.thumbnail_url = yt_video.thumbnail_url
-            except Exception as err:
-                model.thumbnail_url = str(err)
+            except:
+                pass
 
 
 class EventsAdmin(AdminAccessModelView):
