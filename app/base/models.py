@@ -110,7 +110,7 @@ class Person(BaseModel):
 
 class SitePage(BaseModel):
 
-    __tablename__ = 'pages'
+    __tablename__ = 'site_pages'
     access_node_full_name = f"base.{__tablename__}"
 
     url_title: Mapped[str] = mapped_column(String(255), unique=True)

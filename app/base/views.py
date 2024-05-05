@@ -10,6 +10,7 @@ from flask import (
 from flask_security import current_user
 
 from ..auth.constants import Permission
+from ..core.database import DbModel
 from .models import SitePage
 
 
@@ -17,7 +18,7 @@ def _get_page_data(page: SitePage) -> Dict:
     if page.url_title == 'home':
         pass
 
-def _get_models() -> object:
+def _get_models() -> Dict[str, DbModel]:
     from . import models
 
     sqla_models = (
@@ -29,7 +30,7 @@ def _get_models() -> object:
 
     return {model.__name__: model for model in sqla_models}
 
-def display_page(title: str):
+def display_page(title: str) -> str:
     page: SitePage = SitePage.query\
             .filter_by(url_title=title).first_or_404()
     
