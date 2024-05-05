@@ -6,7 +6,7 @@ from pytz import timezone
 from pytz.exceptions import UnknownTimeZoneError
 
 
-def set_tz():
+def set_local_timezone():
     if (tz := request.args.get('tz', None)):
         try:
             timezone(tz)

@@ -112,7 +112,7 @@ def create_app(
 
     # Add middlewares.
     from . import middleware
-    app.before_request(middleware.set_tz)
+    app.before_request(middleware.set_local_timezone)
 
     if use_celery:
         celery_init_app(app)
