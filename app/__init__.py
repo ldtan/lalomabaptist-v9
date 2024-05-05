@@ -83,7 +83,10 @@ def create_app(
     from .extensions import admin
     
     admin.init_app(app)
-    admin.add_link(MenuLink('Log Out', '/auth/logout'))
+    admin.add_links(
+        MenuLink('Log Out', '/auth/logout'),
+        MenuLink('Exit Admin', '/'),
+    )
 
     # Register modules.
     from . import (
