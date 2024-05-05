@@ -16,12 +16,14 @@ from flask_security import (
 )
 from redis import Redis
 
-from .core.utils import (
-    convert_to_local_datetime,
-    register_module,
+from .core.localization import (
+    now,
     render_datetime,
-    BASE_DIR,
+    to_user_timezone,
+    to_utc,
+    utcnow,
 )
+from .core.utils import register_module
 from .core.tasks import celery_init_app
 
 
@@ -105,9 +107,12 @@ def create_app(
     app.jinja_env.globals.update({
         'date': date,
         'datetime': datetime,
-        'convert_to_local_datetime': convert_to_local_datetime,
         'current_user': current_user,
+        'now': now,
+        'utcnow': utcnow,
         'render_datetime': render_datetime,
+        'to_user_timezone': to_user_timezone,
+        'to_utc': to_utc,
     })
 
     # Add middlewares.

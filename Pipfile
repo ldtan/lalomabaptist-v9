@@ -13,11 +13,11 @@ flask-admin = "*"
 bcrypt = "==4.0.1"
 celery = "*"
 pytz = "*"
+pytube = "*"
 
 [dev-packages]
 pymysql = "*"
 redis = "*"
-pytube = "*"
 
 [requires]
 python_version = "3.10"

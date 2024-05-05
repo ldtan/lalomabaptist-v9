@@ -1,4 +1,5 @@
 from flask_admin.form.fields import Select2Field
+from pytube import YouTube
 
 from ..auth.admin import (
     AdminAccessModelView,
@@ -160,6 +161,16 @@ class PreachingsAdmin(AdminAccessModelView):
         'preacher',
     )
     form_edit_rules = form_create_rules
+
+    def on_model_change(self, form, model, is_created):
+        super().on_model_change(form, model, is_created)
+
+        if model.thumbnail_url is None and model.video_url:
+            try:
+                yt_video = YouTube(model.video_url)
+                model.thumbnail_url = yt_video.thumbnail_url
+            except:
+                pass
 
 
 class EventsAdmin(AdminAccessModelView):
