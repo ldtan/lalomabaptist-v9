@@ -39,8 +39,8 @@ class PeopleAdmin(AdminAccessModelView):
     form_columns = (
         'uuid',
         'created_at',
-        'updated_at',
         'created_by',
+        'updated_at',
         'updated_by',
         'access_node',
         'use_unique_access',
@@ -52,6 +52,7 @@ class PeopleAdmin(AdminAccessModelView):
         'birthday',
         'user',
     )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
         'access_node',
         'use_unique_access',
@@ -76,8 +77,8 @@ class SitePagesAdmin(AdminAccessModelView):
     form_columns = (
         'uuid',
         'created_at',
-        'updated_at',
         'created_by',
+        'updated_at',
         'updated_by',
         'access_node',
         'use_unique_access',
@@ -86,6 +87,7 @@ class SitePagesAdmin(AdminAccessModelView):
         'template_name',
         'active',
     )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
         'access_node',
         'use_unique_access',
@@ -107,8 +109,8 @@ class MinistriesAdmin(AdminAccessModelView):
     form_columns = (
         'uuid',
         'created_at',
-        'updated_at',
         'created_by',
+        'updated_at',
         'updated_by',
         'access_node',
         'use_unique_access',
@@ -117,6 +119,7 @@ class MinistriesAdmin(AdminAccessModelView):
         'description',
         'logo_url',
     )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
         'access_node',
         'use_unique_access',
@@ -138,8 +141,8 @@ class PreachingsAdmin(AdminAccessModelView):
     form_columns = (
         'uuid',
         'created_at',
-        'updated_at',
         'created_by',
+        'updated_at',
         'updated_by',
         'access_node',
         'use_unique_access',
@@ -150,6 +153,7 @@ class PreachingsAdmin(AdminAccessModelView):
         'thumbnail_url',
         'preacher',
     )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
         'access_node',
         'use_unique_access',
@@ -194,8 +198,8 @@ class EventsAdmin(AdminAccessModelView):
     form_columns = (
         'uuid',
         'created_at',
-        'updated_at',
         'created_by',
+        'updated_at',
         'updated_by',
         'access_node',
         'use_unique_access',
@@ -209,6 +213,7 @@ class EventsAdmin(AdminAccessModelView):
         # 'repeat_on',
         'include_time',
     )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
         'access_node',
         'use_unique_access',
@@ -246,8 +251,8 @@ class BulletinPostsAdmin(AdminAccessModelView):
     form_columns = (
         'uuid',
         'created_at',
-        'updated_at',
         'created_by',
+        'updated_at',
         'updated_by',
         'access_node',
         'use_unique_access',
@@ -259,6 +264,7 @@ class BulletinPostsAdmin(AdminAccessModelView):
         'display',
         'pinned_until',
     )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
         'access_node',
         'use_unique_access',
