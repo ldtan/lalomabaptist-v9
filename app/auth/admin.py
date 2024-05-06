@@ -10,6 +10,7 @@ from flask_security import (
     verify_password,
 )
 from flask_security import current_user
+from sqlalchemy.orm import Query
 from wtforms import (
     BooleanField,
     PasswordField,
@@ -39,6 +40,13 @@ from .models import (
     User,
     UserAccess,
 )
+
+
+def _group_query() -> Query:
+    return Group.query.filter(
+        (Group.name != 'Anonymous')
+        & (Group.name != 'Authenticated')
+    )
 
 
 class AdminAccessModelView(AdminModelView):
@@ -222,6 +230,11 @@ class AccessNodesAdmin(AdminAccessModelView):
 
     class GroupAccessInlineModel(InlineFormAdmin):
         form_columns = ('id', 'group','role',)
+        form_args = {
+            'group': {
+                'query_factory': _group_query,
+            }
+        }
 
     inline_models = (
         GroupAccessInlineModel(GroupAccess),
@@ -340,6 +353,11 @@ class UsersAdmin(AdminAccessModelView):
             ]
         ),
         'confirm_password': PasswordField('Confirm New Password'),
+    }
+    form_args = {
+        'groups': {
+            'query_factory': _group_query,
+        }
     }
     form_columns = (
         'uuid',
@@ -475,6 +493,11 @@ class GroupAccessesAdmin(AdminAccessModelView):
         'group.name',
         'role.name',
     )
+    form_args = {
+        'group': {
+            'query_factory': _group_query,
+        }
+    }
     form_columns = (
         'uuid',
         'created_at',
