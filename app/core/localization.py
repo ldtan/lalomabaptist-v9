@@ -55,6 +55,8 @@ def render_datetime(
         dt: datetime,
         format: str = '%Y-%m-%d %H:%M:%S %Z%z',
     ) -> str:
-    """Uses to_user_timezone to convert the given datetime and formats it."""
+    """Uses to_user_timezone to convert the given datetime and strftime to
+    format it.
+    """
     
     return to_user_timezone(dt).strftime(format)
