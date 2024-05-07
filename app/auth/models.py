@@ -230,7 +230,7 @@ class AccessNode(AuthModel):
         cls = self.__class__
         
         valid_role_ids = [role.id for role in Role.query.all() \
-                if role.has_permissions(*permissions, require_all)]
+                if role.has_permissions(*permissions, require_all=require_all)]
         
         if not valid_role_ids:
             return False
