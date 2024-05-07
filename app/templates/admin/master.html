@@ -7,6 +7,8 @@
 
 {% block head %}
   {{ super() }}
+  <link rel="icon" href="/static/assets/images/lbc-logo.ico">
+  
   <script src="/static/assets/js/preloader.js"></script>
 
   {% if not session.get('tz', False) %}
