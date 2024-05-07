@@ -29,7 +29,7 @@ def to_user_timezone(dt: datetime) -> datetime:
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=pytz.timezone('UTC'))
 
-    tz = get_timezone() or pytz.timezone('UTC').normalize
+    tz = get_timezone() or pytz.timezone('UTC')
     return tz.normalize(dt.astimezone(tz))
 
 def to_utc(dt: datetime) -> datetime:
