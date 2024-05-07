@@ -195,13 +195,13 @@ class AccessNode(AuthModel):
                     Group.get_by_name(ANONYMOUS),
                     *permissions, require_all=require_all)
         
-        if hasattr(user, 'is_super_user'):
-            return user.is_super_user
+        if getattr(user, 'is_super_user', False):
+            return True
 
         cls = self.__class__
         
         valid_role_ids = [role.id for role in Role.query.all() \
-                if role.has_permissions(*permissions, require_all)]
+                if role.has_permissions(*permissions, require_all=require_all)]
         
         if not valid_role_ids:
             return False
@@ -213,12 +213,12 @@ class AccessNode(AuthModel):
                 & UserAccess.role_id.in_(valid_role_ids)
         
         authenticated_group = Group.get_by_name(AUTHENTICATED)
-        group_filter = (GroupAccess.group.has(Group.users.any(user_id=user.id)) \
+        group_filter = (GroupAccess.group.has(Group.users.any(id=user.id)) \
                 | (GroupAccess.group_id == authenticated_group.id)) \
                 & GroupAccess.role_id.in_(valid_role_ids)
         
         query = query.filter((UserAccess.access_id == self.id) \
-                & (UserAccess.id == self.id) 
+                & (UserAccess.access_id == self.id) 
                 & (user_filter | group_filter))
 
         return query.count() > 0
@@ -297,7 +297,7 @@ class GranularAccessMixin:
         
         permissions = permissions if permissions else [Permission.READ_RECORD]
         valid_role_ids = [role.id for role in Role.query.all() \
-                if role.has_permissions(*permissions, require_all)]
+                if role.has_permissions(*permissions, require_all=require_all)]
         
         if not valid_role_ids:
             return cls.query.filter((cls.id == 0) & (cls.id != 0))
@@ -370,8 +370,12 @@ class Role(AuthModel, RoleMixin, GranularAccessMixin):
         permissions = [perm.name if isinstance(perm, Permission) else perm
                 for perm in permissions]
         
+        for perm in permissions:
+            if perm not in valid_permissions:
+                raise ValueError(f"`{perm}` is not a valid permission")
+        
         return (all if require_all else any)\
-                (perm in valid_permissions for perm in permissions)
+                (perm in self.permissions for perm in permissions)
 
 
 class User(AuthModel, UserMixin, GranularAccessMixin):
