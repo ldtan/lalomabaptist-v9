@@ -49,6 +49,7 @@ class PeopleAdmin(AdminAccessModelView):
         'middle_name',
         'last_name',
         'postfix',
+        'nickname',
         'birthday',
         'user',
     )
@@ -61,6 +62,7 @@ class PeopleAdmin(AdminAccessModelView):
         'middle_name',
         'last_name',
         'postfix',
+        'nickname',
         'birthday',
         'user',
     )
