@@ -3,7 +3,7 @@
 {% macro render(models, limit) %}
   {% set Preaching = models.get('Preaching', None) %}
   {% set limit = limit|default(9) %}
-  {% set preachings = Preaching.authorized_query().limit(limit).all() %}
+  {% set preachings = Preaching.authorized_query().order_by(Preaching.start_datetime.desc()).limit(limit).all() %}
   
   <div class="container">
     <h1 class="text-center">Recent Preachings</h1>
