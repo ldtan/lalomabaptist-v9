@@ -140,6 +140,7 @@ class PreachingsAdmin(AdminAccessModelView):
     column_list = ('title', 'preacher', 'start_datetime',)
     column_filters = column_list
     column_searchable_list = ('title', 'preacher.full_name', 'description',)
+    column_default_sort = [('start_datetime', True),]
     form_columns = (
         'uuid',
         'created_at',
