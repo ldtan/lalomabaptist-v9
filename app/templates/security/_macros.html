@@ -1,24 +1,29 @@
 {% macro render_field_with_errors(field) %}
   {% if field.type == 'BooleanField' %}
   <div class="form-check">
-    {{ field(class_="form-check-input", **kwargs)|safe }}
-    {{ field.label(class_="form-check-label") }}
     {% if field.errors %}
-    <div class="invalid-feedback">
-      {{ field.errors[0] }}
-    </div>
+      {{ field(class_="form-check-input is-invalid", **kwargs)|safe }}
+      {{ field.label(class_="form-check-label") }}
+      <div class="invalid-feedback">
+        {{ field.errors[0] }}
+      </div>
+    {% else %}
+      {{ field(class_="form-check-input", **kwargs)|safe }}
+      {{ field.label(class_="form-check-label") }}
     {% endif %}
   </div>
   {% elif field.type == 'SubmitField' %}
-  {{ field(class_="btn btn-primary", **kwargs)|safe }}
+    {{ field(class_="btn btn-primary", **kwargs)|safe }}
   {% else %}
   <div class="form-group">
     {{ field.label }}
-    {{ field(class_="form-control", **kwargs)|safe }}
     {% if field.errors %}
-    <div class="invalid-feedback">
-      {{ field.errors[0] }}
-    </div>
+      {{ field(class_="form-control is-invalid", **kwargs)|safe }}
+      <div class="invalid-feedback">
+        {{ field.errors[0] }}
+      </div>
+    {% else %}
+      {{ field(class_="form-control", **kwargs)|safe }}
     {% endif %}
   </div>
   {% endif %}

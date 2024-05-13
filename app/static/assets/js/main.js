@@ -51,3 +51,5 @@ jQuery(document).ready(function ($) {
   syncNavbarFill();
   $('#siteNavbar').on('resize', syncNavbarFill);
 });
+
+new WOW().init();
