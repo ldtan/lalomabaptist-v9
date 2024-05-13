@@ -2,7 +2,7 @@
   {% set display = post.display %}
   {% set image_position = post.image_position %}
 
-  <div class="card">
+  <div class="card wow fadeInUp">
     {% if 'image' in display %}
       {% if image_position in ['top', 'bottom'] %}
         {% set class_img_position = 'card-img-' + image_position %}

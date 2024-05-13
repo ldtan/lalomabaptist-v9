@@ -1,3 +1,5 @@
+new WOW().init();
+
 jQuery(document).ready(function ($) {
 
   // Adjust navbar distance from the header for smaller devices.
@@ -51,5 +53,3 @@ jQuery(document).ready(function ($) {
   syncNavbarFill();
   $('#siteNavbar').on('resize', syncNavbarFill);
 });
-
-new WOW().init();

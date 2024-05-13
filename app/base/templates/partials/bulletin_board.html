@@ -8,7 +8,7 @@
   {% set recent_posts = recent_posts + post_query.filter(BulletinPost.pinned_until == None).limit(9).all() %}
 
   <div class="container">
-    <h1 class="text-center">Bulletin Board</h1>
+    <h1 class="text-center wow fadeInUp">Bulletin Board</h1>
     <hr class="mb-3">
 
     {% if recent_posts %}

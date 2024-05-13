@@ -8,17 +8,17 @@
   {% set month = dt_utcnow.month %}
   {% set month_events = Event.get_all_by_month(month, year) %}
 
-  <img class="img-fluid" src="{{ month_cover_url }}" alt="Calendar Cover">
+  <img class="img-fluid wow fadeInUp" src="{{ month_cover_url }}" alt="Calendar Cover">
 
   <div class="container-fluid">
     <div class="row">
-      <div class="calendar-title p-4{{ ' col-12 col-md-6' if month_events|length % 2 == 1 else ' col-12' }}">
+      <div class="calendar-title p-4{{ ' col-12 col-md-6' if month_events|length % 2 == 1 else ' col-12' }} wow slideInRight">
         <h1 class="text-white">{{ dt_now.strftime('%Y') }}</h1>
         <h2 class="text-warning">{{ dt_now.strftime('%B') }}</h2>
       </div>
       {% if month_events %}
         {% for event in month_events %}
-          <div class="col-12 col-md-6 bg-light p-4 border">
+          <div class="col-12 col-md-6 bg-light p-4 border wow fadeInUp">
             <h3>{{ event.title }}</h3>
             <ul class="list-unstyled">
               <li>

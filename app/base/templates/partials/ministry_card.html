@@ -1,7 +1,7 @@
 {% macro render(ministry) %}
   {% set ministry_id = 'ministry-' + ministry.uuid|string %}
 
-  <div id="{{ ministry_id }}" class="card  border-0">
+  <div id="{{ ministry_id }}" class="card border-0 wow fadeInUp">
     <div class="card-img-top d-flex align-items-center justify-content-center">
       <img src="{{ ministry.logo_url }}" alt="{{ ministry.name }}" type="button" data-toggle="collapse" data-target="#{{ ministry_id }} > .card-body" aria-expanded="false">
     </div>
