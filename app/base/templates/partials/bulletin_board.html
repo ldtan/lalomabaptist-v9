@@ -6,7 +6,9 @@
   {% set limit = limit|default(12) %}
   {% set post_query = BulletinPost.authorized_query().order_by(BulletinPost.created_at.desc()) %}
   {% set recent_posts = post_query.filter(BulletinPost.pinned_until >= dt_utcnow).all() %}
-  {% set recent_posts = recent_posts + post_query.filter((BulletinPost.pinned_until < dt_utcnow) | (BulletinPost.pinned_until == None)).limit(10).all() %}
+  {% set filter1 = BulletinPost.pinned_until < dt_utcnow %}
+  {% set filter2 = BulletinPost.pinned_until == None %}
+  {% set recent_posts = recent_posts + post_query.filter(filter1.__or__(filter2)).limit(10).all() %}
 
   <div class="container">
     <h1 class="text-center wow fadeInUp">Bulletin Board</h1>
