@@ -230,11 +230,6 @@ class AccessNodesAdmin(AdminAccessModelView):
 
     class GroupAccessInlineModel(InlineFormAdmin):
         form_columns = ('id', 'group','role',)
-        form_args = {
-            'group': {
-                'query_factory': _group_query,
-            }
-        }
 
     inline_models = (
         GroupAccessInlineModel(GroupAccess),
@@ -493,11 +488,6 @@ class GroupAccessesAdmin(AdminAccessModelView):
         'group.name',
         'role.name',
     )
-    form_args = {
-        'group': {
-            'query_factory': _group_query,
-        }
-    }
     form_columns = (
         'uuid',
         'created_at',
