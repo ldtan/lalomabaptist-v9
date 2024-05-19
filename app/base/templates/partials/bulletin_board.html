@@ -1,11 +1,12 @@
 {% import 'partials/bulletin_post.html' as bulletin_post %}
 
 {% macro render(models, limit) %}
+  {% set dt_utcnow = utcnow() %}
   {% set BulletinPost = models.get('BulletinPost', None) %}
   {% set limit = limit|default(12) %}
   {% set post_query = BulletinPost.authorized_query().order_by(BulletinPost.created_at.desc()) %}
-  {% set recent_posts = post_query.filter(BulletinPost.pinned_until >= datetime.utcnow()).all() %}
-  {% set recent_posts = recent_posts + post_query.filter(BulletinPost.pinned_until == None).limit(9).all() %}
+  {% set recent_posts = post_query.filter(BulletinPost.pinned_until >= dt_utcnow).all() %}
+  {% set recent_posts = recent_posts + post_query.filter(BulletinPost.pinned_until < dt_utcnow).limit(10).all() %}
 
   <div class="container">
     <h1 class="text-center wow fadeInUp">Bulletin Board</h1>
