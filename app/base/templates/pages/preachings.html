@@ -5,7 +5,7 @@
 
 {% set title = 'Preachings' %}
 {% set Preaching = models.get('Preaching', None) %}
-{% set page_no = request.args.get('page', 1) | int %}
+{% set page_no = request.args.get('page', '1')|int %}
 {% set preachings = Preaching.authorized_query().order_by(Preaching.start_datetime.desc()).paginate(page=page_no, per_page=12, error_out=False) %}
 
 {% block styles %}
