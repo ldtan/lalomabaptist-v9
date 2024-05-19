@@ -127,13 +127,13 @@ a.text-white-50:hover {
 
 @media (min-width: 768px) {  
   .card-columns {
-    column-count: 2;
+    column-count: 3;
   }
 }
 
 @media (min-width: 992px) {
   .card-columns {
-    column-count: 3;
+    column-count: 4;
   }
 }
 
