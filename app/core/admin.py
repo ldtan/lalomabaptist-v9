@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import (
     Optional,
     Union,
@@ -24,6 +25,11 @@ from sqlalchemy.orm import(
 )
 
 from .database import DbModel
+from .localization import to_user_timezone
+
+
+def _datetime_format(view, value: datetime):
+    return to_user_timezone(value).strftime('%B %d, %Y, %I:%M %p')
 
 
 class Select2MultipleField(Select2Field):
@@ -119,6 +125,9 @@ class AdminModelView(ModelView):
     can_delete = True
     can_view_details = True
     column_hide_backrefs = False
+    column_type_formatters = {
+        datetime: _datetime_format,
+    }
     extra_js = ['//cdn.ckeditor.com/4.6.0/standard/ckeditor.js']
 
     def __init__(self, model=None, session=None, name=None, category=None,
