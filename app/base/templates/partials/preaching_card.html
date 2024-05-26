@@ -6,8 +6,9 @@
       <h6 class="card-subtitle text-muted mb-3">{{ preaching.preacher or 'TBA' }}</h6>
       {% if preaching.video_url %}
         <a class="card-link" href="{{ preaching.video_url }}" target="_blank">Watch</a>
-      {% else %}
-        <span class="card-link">Watch</span>
+      {% endif %}
+      {% if preaching.outline_url %}
+        <a class="card-link" href="{{ preaching.outline_url }}" target="_blank">Outline</a>
       {% endif %}
     </div>
     <div class="card-footer text-muted">
