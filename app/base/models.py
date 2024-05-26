@@ -146,6 +146,7 @@ class Preaching(BaseModel):
     start_datetime: Mapped[Optional[datetime]] = mapped_column(DateTime)
     video_url: Mapped[Optional[str]] = mapped_column(String(255))
     thumbnail_url: Mapped[Optional[str]] = mapped_column(String(255))
+    outline_url: Mapped[Optional[str]] = mapped_column(String(255))
     preacher_id: Mapped[Optional[int]] = mapped_column(Integer, 
             ForeignKey('people.id'))
     

@@ -152,9 +152,10 @@ class PreachingsAdmin(AdminAccessModelView):
         'title',
         'description',
         'start_datetime',
+        'preacher',
         'video_url',
         'thumbnail_url',
-        'preacher',
+        'outline_url',
     )
     column_details_list = exclude(form_columns, ['use_unique_access'])
     form_create_rules = (
@@ -163,9 +164,10 @@ class PreachingsAdmin(AdminAccessModelView):
         'title',
         'description',
         'start_datetime',
+        'preacher',
         'video_url',
         'thumbnail_url',
-        'preacher',
+        'outline_url',
     )
     form_edit_rules = form_create_rules
 
