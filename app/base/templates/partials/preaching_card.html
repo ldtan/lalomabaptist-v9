@@ -1,18 +1,27 @@
 {% macro render(preaching) %}
   <div class="card h-100 wow fadeInUp">
     <img class="card-img-top img-fluid" src="{{ preaching.thumbnail_url }}" alt="Preaching Thumbnail">
+
     <div class="card-body">
       <h5 class="card-title">{{ preaching.title }}</h5>
       <h6 class="card-subtitle text-muted mb-3">{{ preaching.preacher or 'TBA' }}</h6>
+    </div>
+
+    <div class="card-body">
       {% if preaching.video_url %}
         <a class="card-link" href="{{ preaching.video_url }}" target="_blank">Watch</a>
+      {% else %}
+        <span class="card-link text-muted">Watch</span>
       {% endif %}
       {% if preaching.outline_url %}
         <a class="card-link" href="{{ preaching.outline_url }}" target="_blank">Outline</a>
+      {% else %}
+        <span class="card-link text-muted">Outline</span>
       {% endif %}
     </div>
+
     <div class="card-footer text-muted">
-      {{ render_datetime(preaching.start_datetime, '%A, %b. %d, %Y (%I:%M %p)') }}
+      {{ render_datetime(preaching.start_datetime or preaching.created_at, '%A, %b. %d, %Y (%I:%M %p)') }}
     </div>
   </div>
 {% endmacro %}
