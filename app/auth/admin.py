@@ -65,9 +65,8 @@ class AdminAccessModelView(AdminModelView):
                 query.filter((self.model.id == 0) & (self.model.id != 0))
         
     def get_count_query(self):
-        count_query = type('FakeCountQuery', tuple(), {
-            'scalar': lambda: self.get_query().count()
-        })
+        count_query = self.get_query()
+        count_query.scalar = lambda: self.get_query().count()
 
         return count_query
     
