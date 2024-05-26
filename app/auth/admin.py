@@ -64,16 +64,16 @@ class AdminAccessModelView(AdminModelView):
             return query if is_current_user_super() else \
                 query.filter((self.model.id == 0) & (self.model.id != 0))
         
-    def get_list(self, page, sort_column, sort_desc, search,
-            filters, execute=True, page_size=None):
+    # def get_list(self, page, sort_column, sort_desc, search,
+    #         filters, execute=True, page_size=None):
         
-        _, query = super().get_list(page, sort_column,
-                sort_desc, search, filters, False, page_size)
+    #     _, query = super().get_list(page, sort_column,
+    #             sort_desc, search, filters, False, page_size)
         
-        count = query.count()
-        query = query.all() if execute else query
+    #     count = query.count()
+    #     query = query.all() if execute else query
 
-        return count, query
+    #     return count, query
     
     def on_form_prefill(self, form, id):
         if not (issubclass(self.model, GranularAccessMixin)
