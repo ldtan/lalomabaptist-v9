@@ -1,6 +1,10 @@
 from datetime import datetime
 from typing import (
+    Any,
+    Callable,
+    Iterable,
     Optional,
+    Tuple,
     Union,
 )
 
@@ -85,6 +89,42 @@ class Select2MultipleField(Select2Field):
 
         if invalid_keys:
             raise ValueError(f"These values are invalid {','.join(invalid_keys)}")
+
+
+class EnableDisableMixin:
+
+    def update_records(self,
+            ids: Iterable,
+            is_active: bool,
+            record_valdator: Callable[[Any], bool]
+        ) -> None:
+
+        try:
+            count = 0
+
+            for record in self.model.query.filter(self.model.id.in_(ids)).all():
+                if not record.access_node.has_user_permissions(
+                        current_user, Permission.EDIT_RECORD):
+                    continue
+
+                record.active = False
+                self.session.commit()
+                count += 1
+
+            flash(
+                ngettext(
+                    'Record was successfully disabled.',
+                    f"{count} records were successfully disabled.",
+                    count,
+                    count=count,
+                ),
+                'success',
+            )
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                raise
+
+            flash(gettext('Failed to disable records. %(error)s', error=str(ex)), 'error')
 
 
 class AdminIndexView(BaseAdminIndexView):
@@ -182,6 +222,23 @@ class AdminModelView(ModelView):
     def delete_model(self, model):
         return self.has_delete_permission(model) \
                 and super().delete_model(model)
+    
+    def update_records(self,
+            ids: Iterable,
+            record_editor: Callable[[Any], Tuple[Any, bool]]
+        ) -> Iterable:
+
+        query = self.model.query.filter(self.model.id.in_(ids))
+        updated_records = []
+
+        for record in query.all():
+            record, is_updated = record_editor(record)
+
+            if is_updated:
+                updated_records.append(record)
+
+        return updated_records
+
     
     @expose('/new/', methods=('GET', 'POST'))
     def create_view(self):

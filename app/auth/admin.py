@@ -1,7 +1,18 @@
-from typing import Optional
+from typing import (
+    Any,
+    Tuple,
+)
 import uuid
 
-from flask import request
+from flask import (
+    flash,
+    request,
+)
+from flask_admin.actions import action
+from flask_admin.babel import (
+    gettext,
+    ngettext,
+)
 from flask_admin.base import expose
 from flask_admin.model.form import InlineFormAdmin
 from flask_security import (
@@ -418,6 +429,64 @@ class UsersAdmin(AdminAccessModelView):
                 role=Role.get_by_name(CONTRIBUTOR)
             )
             self.session.add(self_access)
+
+    def _activate_record(self, record, flag: bool = True) -> Tuple[Any, bool]:
+        has_permission = record.access_node.has_user_permissions(
+                current_user, Permission.EDIT_RECORD)
+
+        if has_permission:
+            record.active = flag
+            self.session.commit()
+
+        return record, has_permission
+    
+    @action('enable', 'Enable', 'Are you sure you want to enable the selected pages?')
+    def action_enable(self, ids):
+        try:
+            updated_records = self.update_records(
+                ids,
+                lambda r: self._activate_record(r, True),
+            )
+            count = len(updated_records)
+
+            flash(
+                ngettext(
+                    'Record was successfully enabled.',
+                    f"{count} records were successfully enabled.",
+                    count,
+                    count=count,
+                ),
+                'success',
+            )
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                raise
+
+            flash(gettext('Failed to enable records. %(error)s', error=str(ex)), 'error')
+    
+    @action('disable', 'Disable', 'Are you sure you want to disable the selected pages?')
+    def action_disable(self, ids):
+        try:
+            updated_records = self.update_records(
+                ids,
+                lambda r: self._activate_record(r, False),
+            )
+            count = len(updated_records)
+
+            flash(
+                ngettext(
+                    'Record was successfully disabled.',
+                    f"{count} records were successfully disabled.",
+                    count,
+                    count=count,
+                ),
+                'success',
+            )
+        except Exception as ex:
+            if not self.handle_view_exception(ex):
+                raise
+
+            flash(gettext('Failed to disable records. %(error)s', error=str(ex)), 'error')
 
 
 class GroupsAdmin(AdminAccessModelView):
