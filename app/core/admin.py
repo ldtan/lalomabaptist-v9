@@ -91,42 +91,6 @@ class Select2MultipleField(Select2Field):
             raise ValueError(f"These values are invalid {','.join(invalid_keys)}")
 
 
-class EnableDisableMixin:
-
-    def update_records(self,
-            ids: Iterable,
-            is_active: bool,
-            record_valdator: Callable[[Any], bool]
-        ) -> None:
-
-        try:
-            count = 0
-
-            for record in self.model.query.filter(self.model.id.in_(ids)).all():
-                if not record.access_node.has_user_permissions(
-                        current_user, Permission.EDIT_RECORD):
-                    continue
-
-                record.active = False
-                self.session.commit()
-                count += 1
-
-            flash(
-                ngettext(
-                    'Record was successfully disabled.',
-                    f"{count} records were successfully disabled.",
-                    count,
-                    count=count,
-                ),
-                'success',
-            )
-        except Exception as ex:
-            if not self.handle_view_exception(ex):
-                raise
-
-            flash(gettext('Failed to disable records. %(error)s', error=str(ex)), 'error')
-
-
 class AdminIndexView(BaseAdminIndexView):
     """Customized index view for Admin.
     
