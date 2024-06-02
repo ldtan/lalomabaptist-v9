@@ -39,6 +39,22 @@ from ..core.database import (
 from ..extensions import db
 
 
+class PeopleOnPrayerRequests(db.Model):
+
+    __tablename__ = 'people_on_prayer_requests'
+    __table_args__ = (
+        UniqueConstraint(
+            'person_id',
+            'prayer_request_id',
+            name='uix_person_prayer_request',
+        ),
+    )
+
+    person_id: Mapped[int] = mapped_column(Integer, ForeignKey('people.id'))
+    prayer_request_id: Mapped[int] = mapped_column(
+            Integer, ForeignKey('prayer_requests.id'))
+
+
 class BaseModel(
     db.Model,
     UuidMixin,
@@ -235,3 +251,28 @@ class BulletinPost(BaseModel):
     image_position: Mapped[Optional[str]] = mapped_column(String(255))
     display: Mapped[List[str]] = mapped_column(ScalarListType(str))
     pinned_until: Mapped[Optional[datetime]] = mapped_column(DateTime)
+
+    def __repr__(self) -> str:
+        return f"BulletinPost<{self.content}>"
+
+
+class PrayerRequest(BaseModel):
+
+    __tablename__ = 'prayer_requests'
+    access_node_full_name = f"base.{__tablename__}"
+
+    STATUS_CHOICES: Tuple[Tuple[str, str]] = (
+        ('pending', 'Pending'),
+        ('praying', 'Praying'),
+        ('answered', 'Answered'),
+    )
+
+    title: Mapped[str] = mapped_column(String(255))
+    description: Mapped[Optional[str]] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(String(255))
+    people_praying: Mapped[List['Person']] = relationship(
+            secondary='people_on_prayer_requests')
+    updates: Mapped[Optional[str]] = mapped_column(Text)
+
+    def __repr__(self) -> str:
+        return self.title

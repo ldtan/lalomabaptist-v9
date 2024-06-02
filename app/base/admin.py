@@ -13,13 +13,17 @@ from ..auth.admin import (
     AdminAccessModelView,
 )
 from ..auth.constants import Permission
-from ..core.admin import Select2MultipleField
+from ..core.admin import (
+    CKTextAreaField,
+    Select2MultipleField,
+)
 from ..core.utils import exclude
 from .models import (
     BulletinPost,
     Event,
     Ministry,
     Person,
+    PrayerRequest,
     Preaching,
     SitePage,
 )
@@ -347,5 +351,46 @@ class BulletinPostsAdmin(AdminAccessModelView):
         'image_position',
         'display',
         'pinned_until',
+    )
+    form_edit_rules = form_create_rules
+
+
+class PrayerRequestsAdmin(AdminAccessModelView):
+
+    model = PrayerRequest
+    
+    column_list = ('title', 'description', 'status',)
+    column_filters = column_list
+    column_searchable_list = ('title', 'description', 'status',)
+    form_args = {
+        'status': {'choices': PrayerRequest.STATUS_CHOICES},
+    }
+    form_overrides = {
+        'status': Select2Field,
+        'updates': CKTextAreaField,
+    }
+    form_columns = (
+        'uuid',
+        'created_at',
+        'created_by',
+        'updated_at',
+        'updated_by',
+        'access_node',
+        'use_unique_access',
+        'title',
+        'description',
+        'status',
+        'people_praying',
+        'updates',
+    )
+    column_details_list = exclude(form_columns, ['use_unique_access'])
+    form_create_rules = (
+        'access_node',
+        'use_unique_access',
+        'title',
+        'description',
+        'status',
+        'people_praying',
+        'updates',
     )
     form_edit_rules = form_create_rules

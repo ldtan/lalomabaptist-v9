@@ -23,6 +23,7 @@ def create_blueprint() -> Blueprint:
         admin.EventsAdmin,
         admin.MinistriesAdmin,
         admin.PeopleAdmin,
+        admin.PrayerRequestsAdmin,
         admin.PreachingsAdmin,
         admin.SitePagesAdmin,
     )
