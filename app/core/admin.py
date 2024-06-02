@@ -27,6 +27,8 @@ from sqlalchemy.orm import(
     DeclarativeBase,
     Session,
 )
+from wtforms import TextAreaField
+from wtforms.widgets import TextArea
 
 from .database import DbModel
 from .localization import to_user_timezone
@@ -34,6 +36,18 @@ from .localization import to_user_timezone
 
 def _datetime_format(view, value: datetime):
     return to_user_timezone(value).strftime('%B %d, %Y, %I:%M %p')
+
+
+class CKTextAreaWidget(TextArea):
+
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('class_', 'ckeditor')
+        return super(CKTextAreaWidget, self).__call__(field, **kwargs)
+
+
+class CKTextAreaField(TextAreaField):
+    
+    widget = CKTextAreaWidget()
 
 
 class Select2MultipleField(Select2Field):
