@@ -9,6 +9,7 @@ from typing import (
 )
 import calendar
 
+from pytube import YouTube
 from sqlalchemy import (
     Boolean,
     Date,
@@ -171,6 +172,16 @@ class Preaching(BaseModel):
 
     def __repr__(self) -> str:
         return self.title
+
+    @hybrid_property
+    def is_video_live(self) -> bool:
+        try:
+            yt_video = YouTube(self.video_url)
+            
+            return yt_video.vid_info\
+                    .get('videoDetails', {}).get('isLive', False)
+        except:
+            return None
     
 
 class Event(BaseModel):
