@@ -2,8 +2,8 @@
   <div class="card h-100 wow fadeInUp">
     <img class="card-img-top img-fluid" src="{{ preaching.thumbnail_url }}" alt="Preaching Thumbnail">
 
-    {% if preaching.is_video_live %}
-      <div class="card-img-overlay text-right">
+    {% if preaching.is_video_live or True %}
+      <div class="card-img-overlay text-right" style="bottom: auto;">
         <span class="rounded bg-danger text-white p-1" style="font-size: 12px;">LIVE</span>
       </div>
     {% endif %}
