@@ -10,6 +10,7 @@ from typing import (
 import calendar
 
 from pytube import YouTube
+from pytube.extract import initial_player_response
 from sqlalchemy import (
     Boolean,
     Date,
@@ -177,11 +178,13 @@ class Preaching(BaseModel):
     def is_video_live(self) -> bool:
         try:
             yt_video = YouTube(self.video_url)
-            
-            return yt_video.vid_info\
-                    .get('videoDetails', {}).get('isLive', False)
+            player_response = initial_player_response(yt_video.watch_html)
+            status_dict = player_response.get('playabilityStatus', {})
+
+            return 'liveStreamability' in status_dict
+        
         except:
-            return None
+            return False
     
 
 class Event(BaseModel):
