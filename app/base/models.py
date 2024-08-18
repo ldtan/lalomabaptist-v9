@@ -178,12 +178,10 @@ class Preaching(BaseModel):
     def is_video_live(self) -> bool:
         try:
             yt_video = YouTube(self.video_url)
-            player_response = initial_player_response(yt_video.watch_html)
-            status_dict = player_response.get('playabilityStatus', {})
-
-            return 'liveStreamability' in status_dict
+            return yt_video.vid_info\
+                    .get('videoDetails', {}).get('isLive', False)
         
-        except:
+        except Exception:
             return False
     
 
