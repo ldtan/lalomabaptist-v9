@@ -195,6 +195,13 @@ class AccessNode(AuthModel):
                     Group.get_by_name(ANONYMOUS),
                     *permissions, require_all=require_all)
         
+        elif user.is_authenticated:
+            if self.has_group_permissions(
+                    Group.get_by_name(AUTHENTICATED),
+                    *permissions, require_all=require_all):
+                
+                return True
+        
         if getattr(user, 'is_super_user', False):
             return True
 
