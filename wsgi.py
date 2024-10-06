@@ -26,6 +26,11 @@ if os_name == 'posix':
 else:
     redis_db = None
 
+
+# Note: Use SQLAlchemy session type instead of Redis due to the database
+# (MySQL) not being thread-safe.
+redis_db = None
+
 flask_app = create_app(use_celery=False, session_redis=redis_db)
 celery_app = flask_app.extensions.get('celery', None)
 
