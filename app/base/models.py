@@ -9,8 +9,7 @@ from typing import (
 )
 import calendar
 
-from pytube import YouTube
-from pytube.extract import initial_player_response
+from pytubefix import YouTube
 from sqlalchemy import (
     Boolean,
     Date,

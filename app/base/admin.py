@@ -7,7 +7,7 @@ from flask_admin.babel import (
 )
 from flask_admin.form.fields import Select2Field
 from flask_security import current_user
-from pytube import YouTube
+from pytubefix import YouTube
 
 from ..auth.admin import (
     AdminAccessModelView,
